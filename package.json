@@ -9,7 +9,9 @@
     "test": "yarn compile && node --import tsx --test test/*.test.ts",
     "demo": "yarn compile && node --import tsx scripts/demo.ts",
     "verify:network": "node --import tsx scripts/verify-network.ts",
-    "chain": "node --import tsx scripts/chain.ts"
+    "chain": "node --import tsx scripts/chain.ts",
+    "frame": "yarn compile && node --import tsx services/merchant/server.ts",
+    "frame:whitechain": "node --import tsx services/merchant/server.ts --whitechain"
   },
   "dependencies": {
     "@openzeppelin/contracts": "5.4.0",

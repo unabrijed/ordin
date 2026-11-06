@@ -1,0 +1,28 @@
+# Ordin
+
+> Ordin is a recurring-payment protocol for EVM wallets, targeting Whitechain. Wallet owners authorize fixed payment rules; authorized spenders request collections; the contract enforces those rules.
+
+Ordin is a local prototype, not a deployed or audited production payment service. The website does not connect a wallet or transfer tokens. Live Whitechain USDT compatibility and fully gasless initial token approval are unverified.
+
+## Payment mechanism
+
+1. The wallet owner grants token allowance to the Ordin contract. This only permits token access; it does not authorize an Ordin payment by itself.
+2. The owner separately authorizes a policy specifying the token, spender, recipient, fixed amount, interval, start time, and optional expiry.
+3. The authorized spender submits a collection transaction during an eligible billing period. A merchant backend or external scheduler must trigger it; contracts do not wake themselves up.
+4. The contract checks authorization, policy status, timing, and whether the period has already been paid. Successful collection transfers the full fixed amount directly from the owner to the approved recipient.
+5. Confirmed cancellation stops future collections. It does not refund earlier payments; continuing requires a new authorization.
+
+## Documentation
+
+- [Landing page in Markdown](/index.md): Short explanation, example, and current status.
+- [Protocol documentation](/README.md): Payment policies, contract and SDK interfaces, failure cases, local setup, and release boundaries.
+- [Testnet walkthrough](/docs/TESTNET.md): Commands for development and testnet verification; not evidence of a production deployment.
+- [Combined documentation](/llms-full.txt): Generated landing explanation and protocol documentation in one file.
+
+## Important distinctions
+
+- Every 30 days is a fixed-duration interval, not a calendar month.
+- One successful collection is allowed per billing period. Failed attempts can be retried in the same eligible period. Unpaid periods do not accumulate into arrears.
+- Funds stay in the owner's wallet until collected. Ordin does not require a prepaid balance.
+- The transaction submitter pays the network fee. Gasless initial token approval remains unverified.
+- A hosted scheduler, merchant dashboard, notifications, refunds, and cross-chain payments are outside the first release.

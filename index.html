@@ -1,159 +1,106 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" prefix="og: https://ogp.me/ns#">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#EAE3DE">
-  <meta name="description" content="Ordin. Recurring wallet payments, on your terms.">
-  <title>Ordin — Your terms. Every payment.</title>
+  <meta name="theme-color" content="#142B40">
+  <meta name="description" content="Authorize recurring token payments with a fixed amount, recipient, and schedule. Ordin checks every collection while your funds stay in your wallet until paid.">
+  <meta name="robots" content="noindex, follow">
+  <meta property="og:title" content="Ordin — Recurring payments. Your terms.">
+  <meta property="og:description" content="You authorize the rules. Your merchant requests payment. Ordin checks before tokens move.">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Ordin">
+  <meta property="og:locale" content="en_US">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="Ordin — Recurring payments. Your terms.">
+  <meta name="twitter:description" content="Fixed amount. Approved recipient. One collection per period. Permission stays yours.">
+  <link rel="alternate" type="text/markdown" href="./index.md" title="Ordin in Markdown">
+  <link rel="describedby" type="text/markdown" href="./llms.txt">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%20120%22%20fill%3D%22none%22%20stroke%3D%22%23EAE3DE%22%20stroke-width%3D%222%22%20aria-hidden%3D%22true%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cellipse%20cx%3D%2248%22%20cy%3D%2260%22%20rx%3D%2245%22%20ry%3D%2257%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2088V46%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2058c-8-2-14-8-16-16%209%200%2015%205%2016%2016Zm0%200c8-2%2014-8%2016-16-9%200-15%205-16%2016Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2074c-9-2-15-8-17-17%2010%200%2016%206%2017%2017Zm0%200c9-2%2015-8%2017-17-10%200-16%206-17%2017Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2046c-6-3-9-9-8-16%206%203%209%209%208%2016Zm0%200c6-3%209-9%208-16-6%203-9%209-8%2016Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M30%2044c-5%201-9-1-12-5%205-2%209-1%2012%205Zm36%200c5%201%209-1%2012-5-5-2-9-1-12%205Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fsvg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Poppins:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
+  <title>Ordin — Recurring payments. Your terms.</title>
+  <!-- deployment-metadata -->
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"#website","name":"Ordin","inLanguage":"en"},{"@type":"WebPage","@id":"#page","name":"Ordin — Recurring payments. Your terms.","isPartOf":{"@id":"#website"},"about":{"@id":"#protocol"},"inLanguage":"en"},{"@type":"SoftwareApplication","@id":"#protocol","name":"Ordin","applicationCategory":"DeveloperApplication","operatingSystem":"EVM","description":"A local prototype recurring-payment protocol for EVM wallets, targeting Whitechain. Owners authorize fixed payment policies; authorized spenders request collection; the contract checks the rules and transfers tokens directly to the approved recipient. Not deployed or audited."}]}</script>
   <style>
-    :root { --ink:#175A67; --ink-soft:#2A707C; --cream:#EAE3DE; --max:1440px; --ease:cubic-bezier(.22,1,.36,1); }
-    *,*::before,*::after { box-sizing:border-box; }
-    html { background:var(--cream); -webkit-text-size-adjust:100%; }
-    body { margin:0; color:var(--ink); background:var(--cream); font-family:Poppins,"Helvetica Neue",Arial,sans-serif; font-size:14px; font-weight:400; -webkit-font-smoothing:antialiased; }
-    a { color:inherit; text-decoration:none; text-underline-offset:5px; }
-    a:focus-visible { outline:2px solid var(--ink); outline-offset:6px; }
+    html, body { background:#142B40 !important; color:#EAE3DE; }
+    *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
+    :root { --bg:#142B40; --text:#EAE3DE; --muted:#b4c4c6; --teal:#8ABCB2; --border:rgba(234,227,222,.2); --logo:22px; --logo-mark:26px; --nav:13px; --nav-h:40px; --btn:13px; --btn-h:40px; --hero-btn-h:44px; --h1:54px; --lede:15.5px; --badge:11px; --stat-size:12px; --header-y:22px; --header-x:40px; --stats-x:64px; --stats-y:32px; --hero-gap:70px; --copy-max:860px; --lede-max:530px; }
+    html,body { background:#142B40; background:var(--bg,#142B40); color:#EAE3DE; color:var(--text,#EAE3DE); }
+    html { scroll-behavior:smooth; }
+    body { font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; overflow-x:hidden; position:relative; }
+    a { color:inherit; text-decoration:none; }
+    button { font-family:inherit; cursor:pointer; color:inherit; }
+    a:focus-visible,button:focus-visible { outline:2px solid var(--teal); outline-offset:5px; }
     svg { display:block; flex-shrink:0; }
-    h1,h2,p { margin:0; }
-    .site-footer { position:relative; isolation:isolate; display:flex; flex-direction:column; min-height:100vh; min-height:100svh; overflow:hidden; overflow-wrap:break-word; background:var(--cream); padding:clamp(48px,7vh,88px) max(clamp(24px,5vw,80px),env(safe-area-inset-right)) max(32px,env(safe-area-inset-bottom)) max(clamp(24px,5vw,80px),env(safe-area-inset-left)); }
-    .footer-media { position:absolute; inset:0; z-index:-1; pointer-events:none; }
-    .footer-bg { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; object-position:center bottom; animation:fade-in 1.35s ease both; }
-    .footer-inner { position:relative; width:100%; max-width:var(--max); margin:0 auto; flex:1; display:flex; flex-direction:column; }
-    .footer-grid { display:grid; grid-template-columns:minmax(250px,1.55fr) minmax(130px,.8fr) minmax(150px,.85fr) minmax(190px,1.15fr); column-gap:clamp(24px,3.5vw,54px); align-items:start; }
-    .footer-grid>* { min-width:0; }
-    .brand-lockup { display:flex; align-items:center; gap:18px; width:fit-content; }
-    .brand-mark { width:61px; height:auto; }
-    .brand-name { font-family:"Cormorant Garamond",Georgia,serif; font-size:68px; font-weight:500; letter-spacing:-.045em; line-height:1; }
-    .brand-blurb { font-size:13px; line-height:1.9; font-weight:300; max-width:25ch; margin-top:25px; }
-    .brand-tagline { font-size:10px; letter-spacing:.09em; margin-top:19px; }
-    .col { padding-top:9px; }
-    .col-title { font-size:10px; letter-spacing:.14em; text-transform:uppercase; font-weight:500; margin-bottom:24px; }
-    .link-list { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:14px; }
-    .link-list a { display:inline-block; font-size:12px; line-height:1.7; font-weight:300; transition:opacity .25s ease; }
-    .link-list a:hover { opacity:.65; text-decoration:underline; }
-    .invitation { padding-top:6px; }
-    .invitation h2 { font-family:Poppins,"Helvetica Neue",Arial,sans-serif; font-size:clamp(21px,2vw,30px); line-height:1.45; letter-spacing:-.045em; font-weight:300; }
-    .overview-link { display:flex; align-items:center; justify-content:space-between; gap:24px; width:fit-content; min-width:185px; font-size:11px; padding:12px 0; border-bottom:1px solid #175a6750; margin-top:22px; transition:border-color .25s ease; }
-    .overview-link svg { width:21px; height:21px; transition:transform .3s var(--ease); }
-    .overview-link:hover { border-color:var(--ink); }
-    .overview-link:hover svg { transform:translateX(4px); }
-    .landscape-space { flex:1; min-height:300px; }
-    .footer-bottom { display:flex; justify-content:flex-end; align-items:center; padding-top:36px; }
-    .footer-bottom a { display:flex; gap:10px; align-items:center; font-size:10px; font-weight:300; }
-    .footer-bottom svg { width:15px; height:15px; }
-    .footer-bottom a:hover { text-decoration:underline; }
-    .brand-lockup,.brand-blurb,.brand-tagline,.col-title,.link-list li,.invitation h2,.overview-link,.footer-bottom { animation:rise-in .8s var(--ease) both; }
-    .brand-lockup { animation-delay:.04s; }.brand-blurb { animation-delay:.12s; }.brand-tagline { animation-delay:.2s; }
-    .col { --stagger:.16s; }.col:nth-child(3) { --stagger:.24s; }
-    .col-title { animation-delay:var(--stagger); }.link-list li:nth-child(1) { animation-delay:calc(var(--stagger) + .08s); }.link-list li:nth-child(2) { animation-delay:calc(var(--stagger) + .16s); }.link-list li:nth-child(3) { animation-delay:calc(var(--stagger) + .24s); }.link-list li:nth-child(4) { animation-delay:calc(var(--stagger) + .32s); }
-    .invitation h2 { animation-delay:.32s; }.overview-link { animation-delay:.42s; }.footer-bottom { animation-delay:.6s; }
-    @keyframes rise-in { from { opacity:0; transform:translate3d(0,12px,0); } to { opacity:1; transform:translate3d(0,0,0); } }
-    @keyframes fade-in { from { opacity:0; } to { opacity:1; } }
-    @media(max-width:1100px) {
-      .site-footer { padding:44px 0 0; min-height:100svh; }
-      .footer-inner { order:0; flex:0 0 auto; padding:0 max(clamp(24px,5vw,60px),env(safe-area-inset-right)) 28px max(clamp(24px,5vw,60px),env(safe-area-inset-left)); }
-      .footer-grid { grid-template-columns:minmax(230px,1.5fr) repeat(2,minmax(130px,1fr)); gap:36px 28px; }
-      .invitation { grid-column:1/-1; display:flex; align-items:center; justify-content:space-between; gap:24px; border-top:1px solid #175a6726; padding-top:27px; }
-      .invitation h2 { font-size:24px; }.invitation h2 br { display:none; }.overview-link { margin-top:0; }
-      .footer-media { position:relative; inset:auto; order:1; flex-shrink:0; width:100%; margin-top:auto; z-index:0; }
-      .footer-bg { position:relative; inset:auto; display:block; width:100%; height:auto; object-fit:contain; object-position:center bottom; }
-      .footer-media::after { content:""; position:absolute; left:0; right:0; top:0; height:clamp(52px,16vw,120px); background:linear-gradient(to bottom,#EAE3DE 0%,rgba(234,227,222,.65) 38%,rgba(234,227,222,0) 100%); pointer-events:none; }
-      .landscape-space { display:none; }.footer-bottom { padding-top:24px; }
-    }
-    @media(max-width:720px) {
-      .site-footer { padding-top:35px; }
-      .footer-grid { grid-template-columns:1fr 1fr; gap:31px 24px; }
-      .brand { grid-column:1/-1; }
-      .brand-mark { width:53px; }.brand-name { font-size:60px; }.brand-lockup { gap:16px; }
-      .brand-blurb { max-width:32ch; margin-top:18px; font-size:13px; line-height:1.85; }.brand-tagline { margin-top:12px; font-size:9px; }
-      .col { padding-top:0; }.col-title { margin-bottom:12px; font-size:9px; }
-      .link-list { gap:2px; }.link-list a { font-size:12px; padding:10px 0; }
-      .invitation { display:block; padding-top:25px; }.invitation h2 { font-size:25px; }.invitation h2 br { display:block; }.overview-link { margin-top:17px; min-width:210px; padding:12px 0; }
-      .footer-bottom { justify-content:flex-start; padding-top:26px; }.footer-bottom a { min-height:40px; }
-      .footer-inner { padding-bottom:6px; }
-    }
-    @media(max-width:359px) { .footer-grid { column-gap:16px; }.brand-name { font-size:55px; }.link-list a { font-size:11px; }.col-title { font-size:8px; } }
-    @media(prefers-reduced-motion:reduce) {
-      *,*::before,*::after { animation:none!important; transition:none!important; }
-      .footer-bg { display:none; }
-      .footer-media { background-image:url("https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png"); background-size:cover; background-position:center bottom; background-repeat:no-repeat; }
-      .footer-media::after { content:none; }.overview-link:hover svg { transform:none; }
-    }
-    @media(prefers-reduced-motion:reduce) and (max-width:1100px) { .footer-media { aspect-ratio:16/9; background-size:contain; } }
-
-    /* A quiet, continuously illustrated explanation. No JavaScript required. */
-    .how-section { background:var(--cream); padding:clamp(48px,7vw,96px) max(clamp(24px,5vw,80px),env(safe-area-inset-left)) clamp(48px,6vw,80px); }
-    .how-inner { max-width:1200px; margin:auto; }
-    .how-masthead { display:flex; align-items:center; justify-content:space-between; padding-bottom:32px; border-bottom:1px solid #175a6726; gap:24px; }
-    .how-wordmark { display:flex; align-items:center; gap:12px; font-family:"Cormorant Garamond",Georgia,serif; font-size:38px; font-weight:500; line-height:1; }
-    .how-wordmark svg { width:28px; height:35px; }
-    .how-masthead>a { display:flex; align-items:center; gap:9px; font-size:11px; padding:8px 0; }
-    .how-masthead>a svg { width:17px; height:17px; }
-    .how-masthead>a:hover { text-decoration:underline; }
-    .how-heading { text-align:center; margin:60px auto 0; }
-    .how-eyebrow { font-size:10px; text-transform:uppercase; font-weight:400; letter-spacing:.18em; }
-    .how-heading h2 { font-family:Poppins,"Helvetica Neue",Arial,sans-serif; font-size:clamp(30px,4vw,52px); font-weight:300; letter-spacing:-.055em; line-height:1.25; margin-top:20px; }
-    .how-heading p { font-size:13px; font-weight:300; line-height:1.9; margin-top:18px; }
-    .how-walkthrough { position:relative; margin-top:48px; }
-    .how-stages { display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:clamp(18px,4vw,64px); position:relative; }
-    .how-stage { text-align:center; min-width:0; position:relative; }
-    .stage-visual { height:230px; display:flex; align-items:center; justify-content:center; position:relative; }
-    .stage-visual>svg { width:min(100%,245px); height:220px; overflow:visible; }
-    .how-stage h3 { margin:18px 0 0; font-size:18px; font-weight:400; letter-spacing:-.025em; }
-    .how-stage h3>span { font-size:9px; letter-spacing:.05em; vertical-align:middle; margin-right:9px; opacity:.65; }
-    .how-stage>p { font-size:12px; font-weight:300; line-height:1.85; max-width:28ch; margin:12px auto 0; }
-    .stage-halo { position:absolute; width:190px; height:190px; border:1px solid #175a6720; border-radius:50%; background:radial-gradient(circle,#d5dfd233,transparent 70%); animation:stage-breathe 12s ease-in-out infinite; }
-    .how-stage:nth-child(2) .stage-halo { animation-delay:-8s; }.how-stage:nth-child(3) .stage-halo { animation-delay:-4s; }
-    .stage-halo::after { content:""; position:absolute; inset:-12px; border:1px solid #175a670c; border-radius:50%; }
-    .wallet-drawing { animation:drawing-float 8s ease-in-out infinite; }
-    .permission-drawing { animation:drawing-float 8s ease-in-out -3s infinite; }
-    .merchant-drawing { animation:drawing-float 8s ease-in-out -5s infinite; }
-    .signature-line { stroke-dasharray:155; stroke-dashoffset:155; animation:permission-sign 12s ease-in-out infinite; }
-    .receipt-check { transform-origin:181px 66px; animation:payment-confirm 12s ease-in-out infinite; }
-    .wallet-token { animation:wallet-release 12s ease-in-out infinite; }
-    .payment-path { position:absolute; top:103px; left:26%; width:48%; height:25px; pointer-events:none; }
-    .payment-path::before { content:""; position:absolute; top:11px; left:0; right:0; border-top:1px dashed #175a6740; }
-    .travelling-token { position:absolute; left:0; top:0; width:23px; height:23px; background:var(--cream); border:1px solid var(--ink); border-radius:50%; display:grid; place-items:center; font-size:11px; font-family:Georgia,serif; opacity:0; animation:payment-travel 12s linear infinite; }
-    .how-stage:nth-child(2) .stage-visual { z-index:1; }
-    .how-stage:nth-child(2) .stage-visual>svg { background:var(--cream); border-radius:45%; }
-    .how-controls { display:flex; align-items:center; justify-content:space-between; gap:20px; padding-top:28px; margin-top:40px; border-top:1px solid #175a6726; }
-    .how-controls>p { margin:0; font-size:10px; font-weight:300; color:var(--ink-soft); }
-    .motion-control { display:flex; align-items:center; gap:8px; font-size:10px; cursor:pointer; padding:10px 0 10px 12px; white-space:nowrap; }
-    .motion-control svg { width:14px; height:14px; }
-    .motion-control .play-label { display:none; }
-    .motion-input { position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%); white-space:nowrap; }
-    .motion-input:checked~.how-stages *, .motion-input:checked~.how-stages *::after, .motion-input:checked~.how-stages *::before { animation-play-state:paused!important; }
-    .motion-input:checked~.how-controls .pause-label { display:none; }.motion-input:checked~.how-controls .play-label { display:inline; }
-    .motion-input:focus-visible~.how-controls .motion-control { outline:2px solid var(--ink); outline-offset:5px; }
-    .how-reduced-note { display:none; }
-    @keyframes stage-breathe { 0%,30%,100% { opacity:1; transform:scale(1); } 40%,90% { opacity:.25; transform:scale(.94); } }
-    @keyframes drawing-float { 0%,100% { transform:translateY(0); } 50% { transform:translateY(-5px); } }
-    @keyframes permission-sign { 0%,29% { stroke-dashoffset:155; } 46%,94% { stroke-dashoffset:0; } 100% { stroke-dashoffset:155; } }
-    @keyframes payment-confirm { 0%,65%,100% { opacity:0; transform:scale(.85); } 72%,94% { opacity:1; transform:scale(1); } }
-    @keyframes wallet-release { 0%,15%,100% { opacity:1; transform:translateY(0); } 25%,87% { opacity:.35; transform:translateY(8px); } 95% { opacity:1; transform:translateY(0); } }
-    @keyframes payment-travel { 0%,20% { left:0; opacity:0; } 25% { left:0; opacity:1; } 42%,52% { left:calc(50% - 12px); opacity:1; } 66% { left:calc(100% - 23px); opacity:1; } 72%,100% { left:calc(100% - 23px); opacity:0; } }
-    @media(max-width:720px) {
-      .how-section { padding-top:25px; }.how-masthead { padding-bottom:23px; }.how-wordmark { font-size:32px; }.how-masthead>a { font-size:10px; }
-      .how-heading { margin-top:39px; }.how-eyebrow { font-size:8px; }.how-heading h2 { font-size:35px; margin-top:16px; }.how-heading p { font-size:12px; }
-      .how-walkthrough { margin-top:28px; }.how-stages { grid-template-columns:1fr; gap:27px; }.how-stage { display:grid; grid-template-columns:128px minmax(0,1fr); column-gap:20px; text-align:left; align-items:center; }
-      .stage-visual { grid-row:span 2; height:150px; }.stage-visual>svg { height:145px; width:150px; max-width:100%; }.stage-halo { width:112px; height:112px; }.stage-halo::after { inset:-8px; }
-      .how-stage h3 { margin:0; font-size:17px; align-self:end; line-height:1.5; }.how-stage h3>span { display:block; margin:0 0 7px; font-size:9px; }.how-stage>p { align-self:start; max-width:none; margin:8px 0 0; font-size:11px; }
-      .how-stage:not(:last-child)::after { content:""; position:absolute; left:63px; top:144px; height:34px; border-left:1px dashed #175a6750; }
-      .payment-path { display:none; }.how-controls { margin-top:25px; padding-top:19px; align-items:flex-start; }.how-controls>p { font-size:8px; line-height:1.8; max-width:27ch; }.motion-control { font-size:9px; padding-top:4px; }
-    }
-    @media(max-width:359px) { .how-stage { grid-template-columns:105px minmax(0,1fr); column-gap:15px; }.stage-halo { width:95px; height:95px; }.how-stage:not(:last-child)::after { left:52px; }.how-heading h2 { font-size:30px; } }
-    @media(prefers-reduced-motion:reduce) { .signature-line { stroke-dashoffset:0; }.receipt-check { opacity:1; transform:none; }.wallet-token { opacity:1; transform:none; }.travelling-token { display:none; }.stage-halo { opacity:1; }.motion-control { display:none; }.how-reduced-note { display:inline; font-size:9px; } }
+    [hidden] { display:none!important; }
+    .skip-link { position:fixed; left:20px; top:-100px; z-index:200; padding:12px 18px; background:var(--text); color:var(--bg); border-radius:5px; }.skip-link:focus{top:12px}
+    .hero-photo { position:fixed; inset:0; z-index:0; pointer-events:none; animation:photo-in 1.8s ease both; background:var(--bg); }
+    .hero-photo video { width:100%; height:100%; object-fit:cover; display:block; opacity:1; }
+    .page { position:relative; z-index:1; display:grid; grid-template-rows:auto 1fr auto; min-height:100vh; min-height:100dvh; }
+    .header { display:grid; grid-template-columns:1fr auto 1fr; align-items:center; gap:16px; padding:var(--header-y) var(--header-x) 10px; position:relative; z-index:50; }
+    .logo { display:inline-flex; align-items:center; gap:10px; justify-self:start; font-size:var(--logo); font-weight:500; letter-spacing:-.05em; color:var(--text); }
+    .logo .brand-mark { width:var(--logo-mark); height:33px; }
+    #site-nav { display:flex; align-items:center; gap:8px; justify-self:center; }
+    #site-nav a { height:var(--nav-h); padding:0 18px; border-radius:7px; overflow:hidden; position:relative; display:inline-flex; align-items:center; border:1px solid rgba(138,188,178,.45); background:linear-gradient(105deg,#102839dd,#2a5159bb 48%,#507d7c99); color:#e8efea; font-size:var(--nav); font-weight:400; letter-spacing:-.01em; white-space:nowrap; transition:background .35s,border-color .35s,box-shadow .35s; }
+    #site-nav a::before { content:""; position:absolute; inset:0; background:linear-gradient(115deg,transparent 30%,#eae3de29 50%,transparent 70%); transform:translateX(-120%); transition:transform .6s; pointer-events:none; }
+    #site-nav a:hover::before { transform:translateX(120%); }#site-nav a:hover { border-color:#b2d4c9; background:linear-gradient(105deg,#193948,#3b696c 45%,#6b9990); box-shadow:0 0 18px #8abcb22e; }
+    .header-cta { justify-self:end; }
+    .btn { position:relative; isolation:isolate; overflow:hidden; display:inline-flex; align-items:center; justify-content:center; gap:15px; height:var(--btn-h); padding:0 16px; border-radius:6px; font-size:var(--btn); font-weight:500; letter-spacing:-.02em; line-height:1; white-space:nowrap; cursor:pointer; transition:background .35s,border .35s,box-shadow .35s,color .35s; }
+    .btn::after { content:""; position:absolute; inset:0; pointer-events:none; background:linear-gradient(115deg,transparent 20%,#fff7 48%,transparent 76%); transform:translateX(-130%); transition:transform .65s; }.btn:hover::after{transform:translateX(130%)}
+    .btn-solid { background:linear-gradient(180deg,#faf5ed,#eae3de 48%,#d3d2c8); color:#142b40; border:1px solid #f7f3e8; box-shadow:inset 0 1px #fff9; }
+    .btn-solid:hover { background:linear-gradient(180deg,#fffaf1,#eef2e7 42%,#c8e1d7); border-color:#f4f7e9; box-shadow:inset 0 1px #fff,0 0 26px #8abcb240,0 8px 18px #d9e8d31f; }
+    .btn-ghost { background:linear-gradient(135deg,#eae3de1f,#142b4080 46%,#8abcb21a); color:var(--text); border:1px solid #8abcb28c; backdrop-filter:blur(16px); -webkit-backdrop-filter:blur(16px); box-shadow:inset 0 1px #eae3de1f; }
+    .btn-ghost:hover { background:linear-gradient(135deg,#a6c9ba2e,#142b4059 48%,#8abcb229); border-color:#b3d5c9cc; box-shadow:0 0 24px #8abcb247; }
+    .burger { display:none; width:42px; height:42px; border-radius:6px; border:1px solid var(--border); background:#142b408c; z-index:60; place-content:center; gap:5px; }
+    .burger span { display:block; width:16px; height:1.5px; border-radius:1px; background:var(--text); transition:transform .25s,opacity .2s; }
+    .menu-open .burger span:nth-child(1){transform:translateY(6.5px) rotate(45deg)}.menu-open .burger span:nth-child(2){opacity:0}.menu-open .burger span:nth-child(3){transform:translateY(-6.5px) rotate(-45deg)}
+    .menu-backdrop { display:none; }
+    .hero { display:flex; align-items:flex-end; justify-content:center; padding:32px 24px var(--hero-gap); min-height:0; }
+    .hero-copy { position:relative; z-index:1; display:flex; flex-direction:column; align-items:center; text-align:center; max-width:var(--copy-max); width:100%; }
+    .badge { display:inline-flex; align-items:center; gap:8px; margin-bottom:22px; padding:9px 15px; border-radius:5px; background:linear-gradient(90deg,#527b7b,#24434c 52%,#142b40); color:#e9eee4; font-size:var(--badge); font-weight:400; letter-spacing:.015em; }
+    .badge-star { width:16px; height:18px; color:#bdd8c7; filter:drop-shadow(0 0 3px #bdd8c750); animation:in-star .9s .28s both; }
+    h1 { display:flex; flex-direction:column; align-items:center; color:var(--text); font-size:var(--h1); font-weight:500; letter-spacing:-.045em; line-height:1.12; }
+    .headline-line { display:block; overflow:hidden; padding:.06em .15em .14em; margin-bottom:-.08em; }
+    .headline-line>span{display:block}
+    h1 em { display:inline-block; font-family:"Instrument Serif","Times New Roman",Times,serif; font-style:italic; font-weight:400; font-size:1.08em; letter-spacing:-.03em; color:#9dc3b8; animation:in-em 1.2s .72s both; }
+    .lede { max-width:var(--lede-max); margin-top:18px; color:#c2cfcb; font-size:var(--lede); font-weight:400; line-height:1.65; letter-spacing:-.015em; text-wrap:pretty; }
+    .hero-actions { display:flex; flex-wrap:wrap; justify-content:center; gap:10px; margin-top:26px; }.hero-actions .btn { height:var(--hero-btn-h); padding:0 18px; }
+    .how-link { margin-top:19px; font-size:10px; color:#a9c1bc; text-underline-offset:4px; }.how-link:hover{text-decoration:underline}
+    .stats { padding:0 var(--stats-x) max(var(--stats-y),env(safe-area-inset-bottom)); }
+    .flow { list-style:none; display:grid; grid-template-columns:1fr 1fr 1.15fr; gap:38px; }
+    .stat { display:flex; gap:14px; align-items:flex-start; font-size:var(--stat-size); letter-spacing:-.015em; min-width:0; }
+    .stat-number { display:grid; place-items:center; width:29px; height:29px; flex-shrink:0; border:1px solid #b4cfc55c; border-radius:50%; font-size:10px; color:#bed4c9; }
+    .stat strong { display:block; font-size:var(--stat-size); font-weight:500; color:#e2e8dc; margin-top:2px; }
+    .stat p { margin-top:7px; max-width:31ch; color:#adc0bc; font-size:11px; line-height:1.6; font-weight:400; }
+    #how:target .stat-number { animation:flow-focus 1s ease 2; }
+    .status-line { display:flex; align-items:center; justify-content:space-between; gap:15px; padding-top:20px; margin-top:24px; border-top:1px solid #a8c5bb24; font-size:9px; color:#a1b5b1; }.status-line a:hover{text-decoration:underline;text-underline-offset:3px}
+    .media-toggle { border:0; background:none; display:flex; align-items:center; gap:7px; font-size:9px; color:inherit; padding:5px 0; }.media-toggle svg{width:11px;height:11px}
+    .appear { opacity:1; animation-duration:1.05s; animation-fill-mode:both; animation-timing-function:cubic-bezier(.16,1,.3,1); animation-delay:var(--d,.08s); }
+    .appear--scale{animation-name:in-scale}.appear--soft{animation-name:in-soft}.appear--mask{animation-name:in-mask}.appear--pop{animation-name:in-pop}.appear--btn{animation-name:in-btn}.appear--side{animation-name:in-side}.appear--stat{animation-name:in-stat}.lede.appear{animation-duration:1.25s}
+    .appear.is-in,.hero-photo.is-in{animation:none;opacity:1;transform:none;clip-path:none;filter:none}
+    @keyframes photo-in{from{opacity:0}to{opacity:1}}@keyframes in-scale{from{opacity:0;transform:scale(.84)}to{opacity:1;transform:none}}@keyframes in-soft{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}@keyframes in-mask{from{opacity:0;transform:translateY(40%)}to{opacity:1;transform:none}}@keyframes in-pop{0%{opacity:0;transform:scale(.9)}70%{transform:scale(1.03)}100%{opacity:1;transform:scale(1)}}@keyframes in-btn{from{opacity:0;transform:translateY(18px) scale(.94)}to{opacity:1;transform:none}}@keyframes in-side{from{opacity:0;transform:translateX(22px)}to{opacity:1;transform:none}}@keyframes in-stat{from{opacity:0;transform:translateY(20px)}to{opacity:1;transform:none}}@keyframes in-star{0%{opacity:0;transform:scale(.2) rotate(-50deg)}65%{transform:scale(1.2) rotate(8deg)}100%{opacity:1;transform:none}}@keyframes in-em{from{opacity:.35;filter:blur(4px)}to{opacity:1;filter:none}}@keyframes flow-focus{50%{background:#83b4a54d;border-color:#b6d9ca}}
+    @media(min-width:1280px) and (max-width:1599px){:root{--h1:54px;--lede:16px;--header-x:48px;--stats-x:80px;--copy-max:900px}}
+    @media(min-width:1600px){:root{--logo:26px;--logo-mark:29px;--nav:15px;--nav-h:44px;--btn:15px;--btn-h:44px;--hero-btn-h:48px;--h1:64px;--lede:18px;--badge:13px;--stat-size:15px;--header-y:28px;--header-x:64px;--stats-x:96px;--stats-y:40px;--copy-max:980px;--lede-max:570px}#site-nav a{padding:0 20px}.badge{margin-bottom:26px}.lede{margin-top:22px}.hero-actions{margin-top:30px;gap:12px}.stat p{font-size:12px}}
+    @media(min-width:1920px){:root{--logo:28px;--logo-mark:32px;--nav:16px;--nav-h:48px;--btn:16px;--btn-h:48px;--hero-btn-h:52px;--h1:76px;--lede:20px;--badge:14px;--stat-size:16px;--header-y:32px;--header-x:80px;--stats-x:120px;--stats-y:48px;--copy-max:1120px;--lede-max:640px}#site-nav{gap:10px}#site-nav a,.btn{padding:0 22px}.badge{padding:10px 15px}.stat p{font-size:13px}}
+    @media(min-width:2560px){:root{--h1:88px;--lede:22px;--header-x:120px;--stats-x:160px;--copy-max:1280px;--lede-max:700px}}
+    @media(min-width:901px) and (max-width:1279px){:root{--logo:21px;--nav:12px;--nav-h:36px;--btn:12px;--btn-h:38px;--hero-btn-h:40px;--h1:42px;--lede:15px;--badge:11px;--stat-size:12px;--header-y:16px;--header-x:28px;--stats-x:36px;--stats-y:26px;--hero-gap:50px;--copy-max:760px;--lede-max:500px}#site-nav a{padding:0 13px}.badge{margin-bottom:16px}.lede{margin-top:14px}.hero-actions{margin-top:20px}.flow{gap:22px}}
+    @media(min-width:901px) and (max-height:850px){:root{--header-y:14px;--stats-y:22px;--hero-gap:42px;--h1:40px}.badge{margin-bottom:12px}.lede{margin-top:12px}.hero-actions{margin-top:16px}.status-line{margin-top:18px;padding-top:13px}}
+    @media(min-width:901px) and (max-height:720px){:root{--h1:34px;--lede:14px;--hero-gap:28px;--stats-y:16px;--nav-h:30px;--btn-h:34px;--hero-btn-h:36px}.badge{margin-bottom:8px}.hero{padding-top:12px}.how-link{margin-top:12px}.stat p{font-size:10px}.status-line{margin-top:12px;padding-top:8px}}
+    @media(min-width:901px) and (min-height:580px){html,body{height:100%;overflow:hidden}.page{height:100vh;height:100dvh;overflow:hidden}}
+    @media(max-width:900px){:root{--logo:23px;--btn:13px;--btn-h:42px;--hero-btn-h:48px;--h1:40px;--lede:16px;--badge:12px;--stat-size:13px;--header-y:16px;--header-x:18px;--stats-x:28px;--stats-y:24px;--hero-gap:40px}html,body{height:auto;overflow-y:auto}.header{grid-template-columns:1fr auto auto;gap:8px;padding:max(var(--header-y),env(safe-area-inset-top)) max(var(--header-x),env(safe-area-inset-right)) 10px max(var(--header-x),env(safe-area-inset-left))}.logo,.header-cta,.burger{z-index:80}.burger{display:grid}.menu-backdrop{display:block;position:fixed;inset:0;z-index:40;background:#1023336b;opacity:0;visibility:hidden;transition:opacity .28s,visibility .28s;pointer-events:none}.menu-open .menu-backdrop{opacity:1;visibility:visible;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);pointer-events:auto}#site-nav{position:fixed;inset:0;z-index:45;flex-direction:column;justify-content:center;gap:12px;padding:96px 22px 32px;padding-top:max(96px,calc(env(safe-area-inset-top) + 88px));opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s,visibility .28s}#site-nav a{width:min(100%,460px);height:56px;justify-content:center;font-size:19px;border-radius:10px}.menu-open #site-nav{opacity:1;visibility:visible;pointer-events:auto}.menu-open{overflow:hidden}.hero{padding:100px 22px 52px;align-items:flex-end;min-height:480px}.hero-copy,.lede{max-width:100%}.flow{grid-template-columns:1fr;gap:22px;max-width:470px;margin:auto}.stat p{max-width:none;font-size:12px}.stat-number{margin-top:1px}.status-line{max-width:470px;margin-inline:auto;font-size:8px;flex-wrap:wrap}.hero-photo{position:fixed}.hero-photo video{object-position:55% center}.how-link{font-size:11px}}
+    @media(max-width:560px){:root{--h1:35px;--lede:15px;--header-x:16px}.hero{padding-top:82px}.hero-actions{flex-direction:column;width:min(100%,330px);gap:12px}.hero-actions .btn{width:100%}.header-cta{font-size:10px;padding-inline:11px;height:36px}.logo{font-size:21px}.logo .brand-mark{width:23px;height:29px}.badge{font-size:10px}.stat{gap:12px}.status-line{line-height:1.6}}
+    @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.appear,.hero-photo,.hero h1 em,.badge-star{opacity:1;transform:none;clip-path:none;filter:none}.hero-photo video{display:none}.media-toggle{display:none}}
   </style>
 </head>
-<body>
-  <main>
-    <section class="how-section" id="how" aria-labelledby="how-title">
-      <div class="how-inner">
-        <div class="how-masthead">
-          <a class="how-wordmark" href="#how" aria-label="Ordin home"><svg class="brand-mark" viewBox="0 0 96 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+<body style="background:#142B40;color:#EAE3DE">
+  <a class="skip-link" href="#top">Skip to content</a>
+  <div class="hero-photo" aria-hidden="true"><video id="hero-video" autoplay muted loop playsinline preload="metadata" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4"></video></div>
+  <div class="page">
+    <div class="menu-backdrop"></div>
+    <header class="header">
+      <a class="logo appear appear--scale" href="#top" aria-label="Ordin home" style="--d:.08s"><svg class="brand-mark" viewBox="0 0 96 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
             <ellipse cx="48" cy="60" rx="45" ry="57"/>
             <path d="M48 88V46" stroke-linecap="round"/>
             <path d="M48 58c-8-2-14-8-16-16 9 0 15 5 16 16Zm0 0c8-2 14-8 16-16-9 0-15 5-16 16Z"/>
@@ -161,126 +108,52 @@
             <path d="M48 46c-6-3-9-9-8-16 6 3 9 9 8 16Zm0 0c6-3 9-9 8-16-6 3-9 9-8 16Z"/>
             <path d="M30 44c-5 1-9-1-12-5 5-2 9-1 12 5Zm36 0c5 1 9-1 12-5-5-2-9-1-12 5Z"/>
           </svg><span>Ordin</span></a>
-          <a href="#footer">Explore the protocol <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-        </div>
-        <header class="how-heading">
-          <span class="how-eyebrow">How it works</span>
-          <h2>A little permission.<br>A simpler kind of repeat.</h2>
-          <p>Set your terms once.<br>Every collection follows the same agreement.</p>
-        </header>
-        <div class="how-walkthrough">
-          <input type="checkbox" class="motion-input" id="pause-walkthrough" aria-label="Pause the how-it-works animation">
-          <div class="how-stages">
-            <article class="how-stage">
-              <div class="stage-visual">
-                <div class="stage-halo" aria-hidden="true"></div>
-                <svg class="wallet-drawing" viewBox="0 0 240 220" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
-                  <path d="M51 91V76q0-10 10-12l112-21q12-2 12 10v44"/>
-                  <path d="m63 78 105-20 4 31" opacity=".5"/>
-                  <rect x="43" y="86" width="151" height="96" rx="13" fill="#EAE3DE"/>
-                  <path d="M55 98h122M55 169h122" stroke-dasharray="2 5" opacity=".4"/>
-                  <path d="M165 119h35v30h-35a15 15 0 0 1 0-30Z" fill="#EAE3DE"/>
-                  <circle cx="170" cy="134" r="3"/><path d="M70 122h44M70 133h29" opacity=".5"/>
-                  <g class="wallet-token"><ellipse cx="119" cy="66" rx="22" ry="24" fill="#EAE3DE"/><ellipse cx="119" cy="66" rx="17" ry="19" opacity=".4"/><path d="M110 57h18m-9 0v19m-9-13q9 7 18 0"/></g>
-                  <path d="m64 43 3 8m-16-2 8 4m103-27-4 8" stroke-linecap="round" opacity=".5"/>
-                </svg>
-              </div>
-              <h3><span>01</span>Set your terms.</h3>
-              <p>Choose the amount, recipient, and interval. Your tokens stay in your wallet.</p>
-            </article>
-            <article class="how-stage">
-              <div class="stage-visual">
-                <div class="stage-halo" aria-hidden="true"></div>
-                <svg class="permission-drawing" viewBox="0 0 240 220" fill="none" stroke="currentColor" stroke-width="1.25" aria-hidden="true">
-                  <path d="M65 37h104l12 12v139H65Z" fill="#EAE3DE"/><path d="M169 37v13h12"/>
-                  <text x="81" y="66" fill="currentColor" stroke="none" font-family="Poppins,sans-serif" font-size="7" letter-spacing="1.1">YOUR AGREEMENT</text>
-                  <text x="81" y="99" fill="currentColor" stroke="none" font-family="Poppins,sans-serif" font-size="23" font-weight="300">5 USDT</text>
-                  <path d="M81 112h83" opacity=".25"/>
-                  <text x="81" y="131" fill="currentColor" stroke="none" font-family="Poppins,sans-serif" font-size="8">Every 30 days</text>
-                  <path d="M81 171h83" opacity=".3"/>
-                  <path class="signature-line" d="M84 160q14-25 8-5t13-5q-5 19 7 2t10 2q4 10 13-2t5 4l21-7" stroke-width="1.5" stroke-linecap="round"/>
-                </svg>
-              </div>
-              <h3><span>02</span>Give permission.</h3>
-              <p>Authorize token access and approve the rules for future payments.</p>
-            </article>
-            <article class="how-stage">
-              <div class="stage-visual">
-                <div class="stage-halo" aria-hidden="true"></div>
-                <svg class="merchant-drawing" viewBox="0 0 240 220" fill="none" stroke="currentColor" stroke-width="1.35" aria-hidden="true">
-                  <path d="M61 101v80h119v-80M54 98l14-41h105l14 41H54Z" fill="#EAE3DE"/>
-                  <path d="M54 98q13 20 26 0 14 20 27 0 14 20 27 0 14 20 27 0 13 20 26 0M88 58l-8 40m29-40-2 40m25-40 2 40m21-40 6 40"/>
-                  <path d="M78 181v-49h31v49m20-48h33v27h-33Z"/><circle cx="101" cy="156" r="1.5" fill="currentColor"/>
-                  <path d="M48 182h145M98 134v46" opacity=".35"/>
-                  <g class="receipt-check"><circle cx="181" cy="66" r="22" fill="#EAE3DE"/><path d="m171 66 7 7 13-15" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
-                </svg>
-              </div>
-              <h3><span>03</span>Let it repeat.</h3>
-              <p>The spender requests collection. Ordin checks the rules before tokens move.</p>
-            </article>
-            <div class="payment-path" aria-hidden="true"><span class="travelling-token">₮</span></div>
-          </div>
-          <div class="how-controls">
-            <p>Illustrative sequence. No wallet connected. No tokens moved.</p>
-            <label class="motion-control" for="pause-walkthrough"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M10 8v8m4-8v8"/></svg><span class="pause-label">Pause the story</span><span class="play-label">Play the story</span></label>
-            <span class="how-reduced-note">Reduced motion enabled</span>
-          </div>
-        </div>
+      <nav id="site-nav" aria-label="Primary">
+        <a class="appear appear--scale" style="--d:.16s" href="#how">How it works</a>
+        <a class="appear appear--soft" style="--d:.28s" href="./README.md#billing-behavior">Payment rules</a>
+        <a class="appear appear--scale" style="--d:.40s" href="./README.md#sdk-integration">For builders</a>
+      </nav>
+      <a class="btn btn-solid header-cta appear appear--scale" style="--d:.34s" href="./README.md">Explore the protocol</a>
+      <button class="burger appear appear--scale" style="--d:.34s" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"><span></span><span></span><span></span></button>
+    </header>
+    <main class="hero" id="top">
+      <div class="hero-copy">
+        <div class="badge appear appear--pop" style="--d:.22s"><svg class="badge-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/></svg>Recurring payments for your wallet</div>
+        <h1><span class="headline-line"><span class="appear appear--mask" style="--d:.42s">Payments on repeat.</span></span><span class="headline-line"><span class="appear appear--mask" style="--d:.62s">Always <em>on your terms.</em></span></span></h1>
+        <p class="lede appear appear--soft" style="--d:.82s">Approve the amount, recipient, and schedule once. Your merchant requests each payment. Ordin checks the rules before tokens leave your wallet.</p>
+        <div class="hero-actions"><a class="btn btn-solid appear appear--btn" style="--d:.96s" href="#how">See how payments flow <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></a><a class="btn btn-ghost appear appear--side" style="--d:1.10s" href="./README.md#example">Explore a 5 USDT example</a></div>
+        <a class="how-link appear appear--soft" style="--d:1.15s" href="./README.md#payment-lifecycle">Confirmed cancellation stops future collections.</a>
       </div>
-    </section>
-  </main>
-
-  <footer class="site-footer" id="footer" aria-label="Ordin">
-    <div class="footer-media" aria-hidden="true">
-      <video class="footer-bg" width="1920" height="1080" autoplay muted loop playsinline preload="auto" poster="https://d2ol7oe51mr4n9.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/4f690bd1-881a-4192-82f2-d714d34c8fb9.png">
-        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260901_122529_931c22c8-8d2d-47c0-ad51-b97f56a91e42.mp4" type="video/mp4">
-      </video>
-    </div>
-    <div class="footer-inner">
-      <div class="footer-grid">
-        <div class="brand">
-          <div class="brand-lockup">
-            <svg class="brand-mark" viewBox="0 0 96 120" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-            <ellipse cx="48" cy="60" rx="45" ry="57"/>
-            <path d="M48 88V46" stroke-linecap="round"/>
-            <path d="M48 58c-8-2-14-8-16-16 9 0 15 5 16 16Zm0 0c8-2 14-8 16-16-9 0-15 5-16 16Z"/>
-            <path d="M48 74c-9-2-15-8-17-17 10 0 16 6 17 17Zm0 0c9-2 15-8 17-17-10 0-16 6-17 17Z"/>
-            <path d="M48 46c-6-3-9-9-8-16 6 3 9 9 8 16Zm0 0c6-3 9-9 8-16-6 3-9 9-8 16Z"/>
-            <path d="M30 44c-5 1-9-1-12-5 5-2 9-1 12 5Zm36 0c5 1 9-1 12-5-5-2-9-1-12 5Z"/>
-          </svg>
-            <h1 class="brand-name">Ordin</h1>
-          </div>
-          <p class="brand-blurb">Recurring wallet payments.<br>With permission that stays yours.</p>
-          <p class="brand-tagline">Your terms. Every payment.</p>
-        </div>
-        <nav class="col" aria-label="Explore Ordin">
-          <h2 class="col-title">Explore</h2>
-          <ul class="link-list">
-            <li><a href="./README.md#what-ordin-does">Meet Ordin</a></li>
-            <li><a href="#how">How it works</a></li>
-            <li><a href="./README.md#billing-behavior">Payment rules</a></li>
-            <li><a href="./README.md#failure-handling">When things change</a></li>
-          </ul>
-        </nav>
-        <nav class="col" aria-label="Build with Ordin">
-          <h2 class="col-title">For builders</h2>
-          <ul class="link-list">
-            <li><a href="./README.md#architecture">The protocol</a></li>
-            <li><a href="./README.md#sdk-integration">TypeScript SDK</a></li>
-            <li><a href="./README.md#run-locally">Run locally</a></li>
-            <li><a href="./README.md#verification-before-deployment">Development status</a></li>
-          </ul>
-        </nav>
-        <div class="invitation">
-          <h2>A little less signing.<br>A little more living.</h2>
-          <a class="overview-link" href="./README.md">Discover Ordin <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 12h15M13 6l6 6-6 6"/></svg></a>
-        </div>
-      </div>
-      <div class="landscape-space" aria-hidden="true"></div>
-      <div class="footer-bottom">
-        <a href="./README.md#start-here">Read the project overview <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M7 7h10v10"/></svg></a>
-      </div>
-    </div>
-  </footer>
+    </main>
+    <footer class="stats" id="how" aria-label="How Ordin payments work">
+      <ol class="flow">
+        <li class="stat appear appear--stat" style="--d:1.12s"><span class="stat-number" aria-hidden="true">01</span><div><strong>You authorize</strong><p>Approve token access, then authorize a policy: 5 USDT to your merchant every 30 days.</p></div></li>
+        <li class="stat appear appear--stat" style="--d:1.28s"><span class="stat-number" aria-hidden="true">02</span><div><strong>Your merchant requests</strong><p>The authorized spender submits each collection. The contract doesn’t run a timer.</p></div></li>
+        <li class="stat appear appear--stat" style="--d:1.44s"><span class="stat-number" aria-hidden="true">03</span><div><strong>Ordin checks, then transfers</strong><p>If eligible, exactly 5 USDT moves from your wallet to the recipient. Once per period.</p></div></li>
+      </ol>
+      <div class="status-line"><a href="./README.md#verification-before-deployment">In development · Not deployed or audited</a><button class="media-toggle" type="button" aria-label="Pause background animation" aria-pressed="false"><svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 2h2v8H3zm4 0h2v8H7z"/></svg><span>Pause motion</span></button></div>
+    </footer>
+  </div>
+  <script>
+    (() => {
+      const elements = [...document.querySelectorAll('.appear, .hero-photo')];
+      elements.forEach(el => { const complete = event => { if (event.target !== el) return; el.classList.add('is-in'); el.removeEventListener('animationend', complete); }; el.addEventListener('animationend', complete); });
+      requestAnimationFrame(() => requestAnimationFrame(() => { elements.forEach(el => { if (!el.getAnimations || !el.getAnimations().some(a => a.playState === 'running' || a.playState === 'finished')) el.classList.add('is-in'); }); }));
+      const burger = document.querySelector('.burger'); const nav = document.querySelector('#site-nav'); const desktop = matchMedia('(min-width:901px)');
+      const setMenu = open => { document.body.classList.toggle('menu-open', open); burger.setAttribute('aria-expanded', String(open)); burger.setAttribute('aria-label', open ? 'Close menu' : 'Open menu'); };
+      burger.addEventListener('click', () => setMenu(!document.body.classList.contains('menu-open')));
+      nav.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+      document.querySelector('.menu-backdrop').addEventListener('click', () => setMenu(false));
+      document.addEventListener('keydown', e => { if (e.key === 'Escape' && document.body.classList.contains('menu-open')) { setMenu(false); burger.focus(); } });
+      desktop.addEventListener('change', () => { if (desktop.matches) setMenu(false); });
+      const video = document.querySelector('#hero-video'); const motion = document.querySelector('.media-toggle'); const reduce = matchMedia('(prefers-reduced-motion:reduce)');
+      const updateMotion = () => { motion.setAttribute('aria-pressed', String(video.paused)); motion.setAttribute('aria-label', video.paused ? 'Play background animation' : 'Pause background animation'); motion.querySelector('span').textContent = video.paused ? 'Play motion' : 'Pause motion'; };
+      const preference = () => { if (reduce.matches) video.pause(); else video.play().catch(updateMotion); };
+      video.addEventListener('play', updateMotion); video.addEventListener('pause', updateMotion);
+      const mediaError = () => { video.hidden = true; motion.hidden = true; }; video.addEventListener('error', mediaError); if (video.error) mediaError();
+      motion.addEventListener('click', () => { if (video.paused) video.play().catch(updateMotion); else video.pause(); });
+      reduce.addEventListener('change', preference); preference(); updateMotion();
+    })();
+  </script>
 </body>
 </html>

@@ -1,0 +1,5 @@
+# Public content may be crawled. This file is not an access-control mechanism.
+User-agent: *
+Allow: /
+
+# The production build adds the absolute sitemap URL when its origin is known.

@@ -73,3 +73,8 @@ temp/
 ._*
 Thumbs.db
 Desktop.ini
+
+# Merchant runtime database and SQLite sidecars
+*.sqlite
+*.sqlite-wal
+*.sqlite-shm

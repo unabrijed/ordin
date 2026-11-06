@@ -1,41 +1,55 @@
 # Ordin landing page
 
-Independent React + TypeScript + Vite + Tailwind app. The root protocol project is unchanged.
+The current page is the repository-root `index.html`. It contains the markup, styles, inline SVG brand mark, and small menu/motion script. The Vite commands in this folder serve and build that same file; the earlier React files are retained design iterations and are not the active entry point.
 
-## Run
+## Local preview
 
-From this folder:
-
-```sh
-yarn install --frozen-lockfile
-yarn dev
-```
-
-Open the local address printed by Vite. To validate TypeScript and produce a static build:
+From the repository root:
 
 ```sh
-yarn build
+yarn --cwd landing install --frozen-lockfile
+yarn --cwd landing dev
 ```
 
-Deploy `dist/` to a static host when ready. This page has not been deployed.
+Open Vite's printed URL. Restart an older running server after changing the Vite root. The HTML also opens directly from disk; fonts and the provided background video require network access. Without the video, the navy background and all content remain visible.
 
-## Design
+## Build and test
 
-- Cream `#F7F3E8`, navy `#142B40`, electric mint `#D2FA90`, with lilac and peach illustration surfaces.
-- Inter Tight headings and DM Sans body copy, loaded from Google Fonts with system fallbacks.
-- Modern immersive direction: a deep-navy hero, ambient light, mint gradient typography, frosted navigation, cursor-responsive depth, floating illustrated wallets and storefronts, and staggered reveals. Pointer motion is disabled for touch and reduced-motion preferences; the pause control stops ambient animation too.
-- Original CSS/SVG illustrations; no third-party campaign imagery or videos.
+```sh
+yarn --cwd landing build
+yarn --cwd landing test:seo
+```
 
-The payment playground is an animated SVG illustration, with a dedicated vertical composition on phones. Coins flow from a wallet through a fixed payment policy to a merchant. Cancel stops the flow; reset restarts the illustration. Pause stops page animations, and reduced-motion preferences are respected. This is illustrative animation, not a live billing schedule or contract simulation. No wallet connects and no tokens move. SVG keeps the loop sharp and interactive without a GIF download.
+The build runs six deployment-metadata tests and the existing TypeScript check, then writes the website to `landing/dist/`. The production site does not need React to render.
 
-`public/protocol.md` is a snapshot of the root README for the overview link. Refresh it when protocol documentation changes. Copy reflects a local prototype, not a deployed or audited product.
+## Design and content
 
-## Files
+Single-screen desktop composition using navy, cream, and teal. The oval sprig mark is preserved. Inter is used for the interface; Instrument Serif italic accents the headline. Three bottom items explain owner authorization, a merchant collection request, and contract validation followed by a direct transfer. The page makes no live wallet calls or automatic-collection claims.
 
-- `src/main.tsx`: page content, SVG illustrations, and interactive animation controls.
-- `src/styles.css`: design system, layout, responsive rules, and animation.
-- `public/ordin-mark.svg`: reusable logo mark/favicon.
+The supplied background MP4 has no color overlay. It can be paused and is hidden for reduced-motion preferences. Mobile menus support Escape and close on navigation or desktop resizing. Short/mobile screens may scroll to keep all content reachable.
 
-## Validation
+## Vercel deployment
 
-TypeScript and the production build pass using Yarn 1.22.22. The converted Yarn lockfile passes dependency resolution; a clean install could not be verified because the environment has no registry access and its Yarn cache is incomplete. Browser verification could not be completed in the implementation environment: it blocked the preview server's listening port and Chrome launch. Responsive breakpoints and interaction behavior still need a visual pass in a normal browser.
+Import the repository with **Root Directory set to the repository root**, not `landing/`. `vercel.json` sets:
+
+- Install: `yarn --cwd landing install --frozen-lockfile`
+- Build: `yarn --cwd landing build`
+- Output: `landing/dist`
+
+Keep Vercel system environment variables enabled. The build reads `VERCEL_PROJECT_PRODUCTION_URL` for canonical and Open Graph URLs. `SITE_URL` can override it later with an HTTPS origin, for example a future custom domain. No example domain is emitted into the real build.
+
+Production emits indexable metadata, `/sitemap.xml`, and the sitemap entry in `/robots.txt`. Preview/custom deployment environments receive `noindex, follow` in HTML and no sitemap. Local builds have no invented canonical URL and stay `noindex`. `robots.txt` allows crawling; it is not a security control.
+
+## Search and agent-readable content
+
+- `index.html`: title, description, Open Graph/Twitter text metadata, and WebSite/WebPage/SoftwareApplication JSON-LD.
+- `/index.md`: the page's payment-flow explanation in Markdown.
+- `/llms.txt`: concise product facts and links for LLM retrieval.
+- `/llms-full.txt`: generated from `index.md` and the current root README.
+- `/README.md` and `/docs/TESTNET.md`: authoritative project documentation copied at build time.
+
+LLM files are documentation aids, not a hosted agent API or a guarantee of search visibility. Social metadata is text-only; no invented social image is supplied.
+
+## Verification limits
+
+Build and metadata tests run locally. This environment has blocked preview-server sockets and browser launch, so visual inspection and live video playback still need verification in a normal browser. Deployment is configured but has not been performed.

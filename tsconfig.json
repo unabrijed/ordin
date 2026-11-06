@@ -9,5 +9,11 @@
     "resolveJsonModule": true,
     "allowImportingTsExtensions": true
   },
-  "include": ["sdk/**/*.ts", "scripts/**/*.ts", "test/**/*.ts", "hardhat.config.ts"]
+  "include": [
+    "sdk/**/*.ts",
+    "scripts/**/*.ts",
+    "test/**/*.ts",
+    "hardhat.config.ts",
+    "services/**/*.ts"
+  ]
 }
