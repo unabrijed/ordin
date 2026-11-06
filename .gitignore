@@ -1,0 +1,75 @@
+# Dependencies and package-manager caches (also apply inside landing/).
+node_modules/
+.yarn/cache/
+.yarn/unplugged/
+.yarn/install-state.gz
+.yarn/build-state.yml
+.pnp.*
+
+# Yarn is the project's package manager. Keep both yarn.lock files tracked.
+package-lock.json
+npm-shrinkwrap.json
+pnpm-lock.yaml
+
+# Build outputs, compiler artifacts and local tooling caches.
+artifacts/
+cache/
+dist/
+build/
+.cache/
+.vite/
+*.tsbuildinfo
+*.tsbuildinfo.*
+.eslintcache
+.stylelintcache
+
+# Test results and coverage.
+coverage/
+.nyc_output/
+test-results/
+playwright-report/
+
+# Local environment and credential files. Only the sanitized template is public.
+.env
+.env.*
+!.env.example
+.envrc
+.npmrc
+.aws/
+.ssh/
+secrets/
+keystore/
+keystores/
+*.key
+*.pem
+*.p12
+*.pfx
+*.jks
+
+# Local deployment state and exact compilation snapshots.
+# Publish reviewed deployment addresses explicitly in documentation instead.
+.ordin/
+.vercel/
+.netlify/
+
+# Logs, crash dumps and temporary files.
+*.log
+*.log.*
+*.pid
+*.pid.lock
+report.*.json
+tmp/
+temp/
+*.tmp
+*.bak
+
+# Editor and operating-system metadata.
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+._*
+Thumbs.db
+Desktop.ini

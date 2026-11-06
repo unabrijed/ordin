@@ -1,0 +1,26 @@
+{
+  "name": "ordin",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "compile": "node --import tsx scripts/compile.ts",
+    "typecheck": "tsc --noEmit",
+    "test": "yarn compile && node --import tsx --test test/*.test.ts",
+    "demo": "yarn compile && node --import tsx scripts/demo.ts",
+    "verify:network": "node --import tsx scripts/verify-network.ts",
+    "chain": "node --import tsx scripts/chain.ts"
+  },
+  "dependencies": {
+    "@openzeppelin/contracts": "5.4.0",
+    "viem": "2.56.0"
+  },
+  "devDependencies": {
+    "@types/node": "22.13.10",
+    "hardhat": "3.12.0",
+    "solc": "0.8.30",
+    "tsx": "4.23.12",
+    "typescript": "5.9.3"
+  },
+  "packageManager": "yarn@1.22.22"
+}
