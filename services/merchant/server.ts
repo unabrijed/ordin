@@ -1,12 +1,13 @@
+import { Readable } from 'node:stream';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { readFileSync, existsSync, mkdirSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
-import { resolve } from 'node:path';
+import { resolve, dirname } from 'node:path';
 import { randomBytes, createHash } from 'node:crypto';
 import { DatabaseSync } from 'node:sqlite';
-import { encodeFunctionData, erc20Abi, formatUnits, isAddress, keccak256, parseEther, toHex, verifyMessage, type Address, type Hex } from 'viem';
+import { encodeFunctionData, erc20Abi, formatUnits, isAddress, keccak256, parseEther, toHex, verifyMessage, type Address, type Hex, type WalletClient, type Transport, type Chain, type Account } from 'viem';
 import { approveTokenCall, cancelPolicyTypedData, cancelSignedPolicyCall, collectCall, createPolicyTypedData, inspectPolicy, ordinAbi, paymentEvents, policyId, readNonce, registerSignedPolicyCall, type PolicyTerms } from '../../sdk/index.ts';
-import { artifact } from '../../scripts/local.ts';
+import { serverConfiguration } from './config.ts';
 import { TransactionQueue } from './queue.ts';
 import { paymentReference } from './billing.ts';
 import { createRuntime, type Runtime } from './runtime.ts';
@@ -19,8 +20,9 @@ class HttpError extends Error { constructor(public status:number,message:string)
 const assert: (condition:unknown,message:string,status?:number)=>asserts condition = (condition,message,status=400)=>{if(!condition)throw new HttpError(status,message);};
 const termsFrom=(t:any):PolicyTerms=>({...t,amount:BigInt(t.amount),interval:BigInt(t.interval),start:BigInt(t.start),expiry:BigInt(t.expiry)});
 
-export async function createMerchantApp(runtime:Runtime, database=':memory:') {
+export async function createMerchantApp(runtime:Runtime, database=':memory:', publicOrigin?:string) {
  const r=runtime, client=r.client;
+ const signer=r.merchant as WalletClient<Transport,Chain,Account>;
  const db=new DatabaseSync(database);
  db.exec(`PRAGMA journal_mode=WAL;
  CREATE TABLE IF NOT EXISTS sessions (digest TEXT PRIMARY KEY, owner TEXT, expires INTEGER);
@@ -62,7 +64,7 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
  async function send(job:string,call:{to:Address;data:Hex},kind:string,id:Hex) {
   const t=transport(async()=>{
    await client.call({account:r.merchant.account.address,...call});
-   const request=await r.merchant.prepareTransactionRequest({...call});
+   const request=await signer.prepareTransactionRequest({...call});
    if(r.mode==='whitechain'){
     const day=new Date().toISOString().slice(0,10);
     const rows=db.prepare('SELECT cost FROM budget WHERE day=?').all(day) as {cost:string}[];
@@ -71,15 +73,17 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
     assert(used+cost<=parseEther(process.env.RELAYER_DAILY_GAS_BUDGET_WBT||'0.05'),'Sponsorship budget exhausted; try later',503);
     db.prepare('INSERT OR IGNORE INTO budget VALUES (?,?,?)').run(job,day,cost.toString());
    }
-   return r.merchant.signTransaction(request);
+   return signer.signTransaction(request);
   });
   const submission=await queue.execute(job,t);
-  db.prepare('INSERT OR IGNORE INTO receipts VALUES (?,?,?,?)').run(submission.hash,kind,id,'');
+  db.prepare('INSERT OR IGNORE INTO receipts VALUES (?,?,?,?)').run(submission.hash,kind,id,'');receiptCache=undefined;
   // Local mining is immediate. Live requests return the hash without waiting on finality.
   if(r.mode==='local')await queue.execute(job,t);
   return submission.hash;
  }
  async function tick() {
+  await client.getBlockNumber({cacheTime:0});
+  if(r.mode==='whitechain'&&await client.getBalance({address:r.merchant.account.address})===0n)throw new Error('Merchant gas funding exhausted');
   await reconcile();
   const subscriptions=db.prepare('SELECT id FROM subscriptions').all() as {id:Hex}[];
   for(const {id} of subscriptions){
@@ -118,13 +122,17 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
   assert(session&&session.expires>Date.now(),'Session expired. Reconnect your wallet.',401);return session.owner as Address;
  };
  const newSession=(owner:Address)=>{const value=token();db.prepare('INSERT INTO sessions VALUES (?,?,?)').run(hash(value),owner.toLowerCase(),Date.now()+3600_000);return {token:value,owner};};
+ let receiptCache:{time:number;rows:any[]}|undefined;
  async function receiptList(){
-  const rows=db.prepare('SELECT * FROM receipts ORDER BY rowid DESC LIMIT 40').all() as any[];
-  return Promise.all(rows.map(async row=>{
-   try{const receipt=await client.getTransactionReceipt({hash:row.hash});const status=await transactionState(row.hash);
+  if(receiptCache&&Date.now()-receiptCache.time<2000)return receiptCache.rows;
+  const head=await client.getBlockNumber({cacheTime:0});
+  const rows=db.prepare('SELECT * FROM receipts ORDER BY rowid DESC LIMIT 20').all() as any[];
+  const result=await Promise.all(rows.map(async row=>{
+   try{const receipt=await client.getTransactionReceipt({hash:row.hash});const status=head<receipt.blockNumber+BigInt(r.confirmations-1)?'pending':receipt.status;
     return {...row,status,block:receipt.blockNumber,gasUsed:receipt.gasUsed,events:paymentEvents(r.contract,receipt.logs).map(e=>e.args)};
    }catch{return {...row,status:'pending',events:[]};}
   }));
+  receiptCache={time:Date.now(),rows:result};return result;
  }
  async function body(req:IncomingMessage){let raw='';for await(const part of req){raw+=part;assert(raw.length<=16_384,'Request too large',413);}try{return JSON.parse(raw||'{}');}catch{throw new HttpError(400,'Invalid JSON');}}
  const limits=new Map<string,{time:number;count:number}>();
@@ -132,7 +140,8 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
   const json=(value:unknown,status=200)=>{res.writeHead(status,{'content-type':'application/json','cache-control':'no-store'});res.end(stringify(value));};
   try{
    const host=req.headers.host??'';
-   const allowed=process.env.FRAME_ORIGIN||`http://${host}`;
+   if(r.mode==='local'&&!/^(localhost|127\.0\.0\.1)(:\d+)?$/.test(host))throw new HttpError(403,'Use localhost for the local demo');
+   const allowed=publicOrigin||process.env.FRAME_ORIGIN||`http://${host}`;
    const origin=req.headers.origin;
    if(origin&&origin!==allowed)throw new HttpError(403,'Origin not allowed');
    if(origin)res.setHeader('Access-Control-Allow-Origin',allowed);
@@ -144,7 +153,8 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
     if(!limit||now-limit.time>60_000)limits.set(ip,{time:now,count:1});else {limit.count++;assert(limit.count<=90,'Too many requests; try again in a minute',429);}
    }
    if(path==='/api/config'){json({mode:r.mode,chainId:r.chainId,contract:r.contract,token:r.token,spender:r.merchant.account.address,treasury:r.treasury,interval:r.interval,amount:'1000000',cycles:3,explorer:r.mode==='whitechain'?'https://explorer.testnet.whitechain.io':'',localOwner:r.local?.accounts[0].address});return;}
-   if(path==='/api/health'){json({ok:!workerError,lastTick,workerError,mode:r.mode});return;}
+   if(path==='/api/health'){json({ok:true,mode:r.mode});return;}
+   if(path==='/api/ready'){const ready=lastTick>0&&!workerError&&Date.now()-lastTick<60000;json({ok:ready,lastTick,workerError,mode:r.mode,chainId:r.chainId,contract:r.contract},ready?200:503);return;}
    if(path==='/api/merchant'&&method==='GET'){
     const [list,receipts,balance]=await Promise.all([policies(),receiptList(),client.readContract({address:r.token,abi:erc20Abi,functionName:'balanceOf',args:[r.treasury]})]);
     json({policies:list,receipts,balance,attempts,lastTick,workerError});return;
@@ -195,7 +205,11 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
      const call=registerSignedPolicyCall(r.contract,owner,terms,nonce,deadline,signature);
      await client.call({account:r.merchant.account.address,...call});
      db.prepare('INSERT OR IGNORE INTO subscriptions VALUES (?,?,?)').run(id,owner,Date.now());
-     const tx=await send(`create:${id}`,call,'registration',id);
+     let tx:Hex;
+     try{tx=await send(`create:${id}`,call,'registration',id);}catch(error){
+      if(!queue.pending().some(job=>job.job===`create:${id}`))db.prepare('DELETE FROM subscriptions WHERE id=?').run(id);
+      throw error;
+     }
      db.prepare('DELETE FROM quotes WHERE id=?').run(b.id);
      await tick();json({id,hash:tx});
     });return;
@@ -223,7 +237,7 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
      if(b.action==='advance'){
       const mine=await policies(r.local!.accounts[0].address.toLowerCase());const next=mine.find(p=>p.status==='paid'&&p.nextDueAt>0n);
       assert(next,'No upcoming renewal. Subscribe first or wait for payment.');await r.local!.time(next.nextDueAt);
-     }else if(b.action==='fund')await r.local!.send(0,{to:r.token,data:encodeFunctionData({abi:artifact('TestToken').abi,functionName:'mint',args:[r.local!.accounts[0].address,10_000_000n]})});
+     }else if(b.action==='fund'){const {artifact}=await import('../../scripts/local.ts');await r.local!.send(0,{to:r.token,data:encodeFunctionData({abi:artifact('TestToken').abi,functionName:'mint',args:[r.local!.accounts[0].address,10_000_000n]})});}
      else if(b.action==='empty'){
       const balance=await client.readContract({address:r.token,abi:erc20Abi,functionName:'balanceOf',args:[r.local!.accounts[0].address]});
       await r.local!.send(0,{to:r.token,data:encodeFunctionData({abi:erc20Abi,functionName:'transfer',args:[r.local!.accounts[3].address,balance]})});
@@ -264,18 +278,32 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:') {
  }
  const server=createServer((req,res)=>void handle(req,res));
  let timer:ReturnType<typeof setInterval>|undefined;
- return {server,tick:()=>exclusive(tick),startWorker(){timer=setInterval(()=>{if(closing)return;void exclusive(async()=>{if(r.local)await r.local.connection.provider.request({method:'evm_mine',params:[]});await tick();}).catch(()=>{workerError='RPC or transaction temporarily unavailable';});},2000);},async close(){closing=true;if(timer)clearInterval(timer);await tail;await new Promise<void>(done=>server.listening?server.close(()=>done()):done());queue.close();db.close();await r.close();}};
+ return {server, async inject(path:string, options:{method?:string;body?:unknown;token?:string;origin?:string}={}) {
+  const request=Readable.from(options.body===undefined?[]:[Buffer.from(stringify(options.body))]) as IncomingMessage;
+  request.url=path;request.method=options.method||(options.body===undefined?'GET':'POST');
+  request.headers={host:'localhost:3210',...(options.token?{authorization:`Bearer ${options.token}`} :{}),...(options.origin?{origin:options.origin}:{})};
+  Object.defineProperty(request,'socket',{value:{remoteAddress:'127.0.0.1'}});
+  let status=200;const headers:Record<string,string>={};let output:Buffer=Buffer.alloc(0);
+  const response={setHeader(name:string,value:string){headers[name]=value;},writeHead(code:number,h:Record<string,string>){status=code;Object.assign(headers,h);},end(value:Buffer|string){output=Buffer.isBuffer(value)?value:Buffer.from(value||'');}} as unknown as ServerResponse;
+  await handle(request,response);
+  return {status,headers,body:output,json:()=>JSON.parse(output.toString())};
+ },tick:()=>exclusive(tick),startWorker(){if(timer)return;let scheduled=false;const run=()=>{if(closing||scheduled)return;scheduled=true;void exclusive(async()=>{if(r.local)await r.local.connection.provider.request({method:'evm_mine',params:[]});await tick();}).catch(()=>{workerError='RPC, signer funding, or transaction temporarily unavailable';}).finally(()=>{scheduled=false;});};run();timer=setInterval(run,r.mode==='local'?2000:5000);},async close(){closing=true;if(timer)clearInterval(timer);await tail;await new Promise<void>(done=>server.listening?server.close(()=>done()):done());queue.close();db.close();await r.close();}};
 }
 
 if(process.argv[1]&&resolve(process.argv[1])===fileURLToPath(import.meta.url)){
- if(existsSync('.env'))process.loadEnvFile('.env');
- const mode=process.argv.includes('--whitechain')?'whitechain':'local';
- const port=Number(process.env.FRAME_PORT||3210);
- const runtime=await createRuntime(mode);
- if(mode==='whitechain')mkdirSync('.ordin',{recursive:true});
- const app=await createMerchantApp(runtime,mode==='local'?':memory:':process.env.FRAME_DATABASE||'.ordin/frame.sqlite');
- await new Promise<void>((done,reject)=>{app.server.once('error',reject);app.server.listen(port,mode==='local'?'127.0.0.1':process.env.FRAME_HOST||'127.0.0.1',done);});
- app.startWorker();
- console.log(`Frame: http://localhost:${port} (${mode==='local'?'LOCAL EVM — mock USDT, ephemeral state':'WHITECHAIN SEPOLIA — official test USDT'})`);
- const shutdown=()=>{void app.close().then(()=>process.exit(0));};process.once('SIGINT',shutdown);process.once('SIGTERM',shutdown);
+ try{
+  if(existsSync('.env'))process.loadEnvFile('.env');
+  const config=serverConfiguration(process.argv.slice(2));
+  const runtime=await createRuntime(config.mode);
+  if(config.database!==':memory:')mkdirSync(dirname(config.database),{recursive:true});
+  const app=await createMerchantApp(runtime,config.database,config.origin);
+  await new Promise<void>((done,reject)=>{app.server.once('error',reject);app.server.listen(config.port,config.host,done);});
+  app.startWorker();
+  console.log(`Frame: ${config.origin||`http://localhost:${config.port}`} (${config.mode==='local'?'LOCAL EVM — mock USDT, ephemeral state':'WHITECHAIN SEPOLIA — official test USDT'})`);
+  const shutdown=()=>{void app.close().then(()=>process.exit(0));};process.once('SIGINT',shutdown);process.once('SIGTERM',shutdown);
+ }catch(error){
+  // Viem/HTTP error strings may include sensitive RPC credentials. Do not print raw causes.
+  console.error(error instanceof Error&&error.constructor===Error?error.message:'Frame could not start. Check Whitechain connectivity, deployment configuration and merchant WBT funding.');
+  process.exitCode=1;
+ }
 }
