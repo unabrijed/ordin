@@ -3,31 +3,31 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="theme-color" content="#142B40">
+  <meta name="theme-color" content="#000000">
   <meta name="description" content="Authorize recurring token payments with a fixed amount, recipient, and schedule. Ordin checks every collection while your funds stay in your wallet until paid.">
   <meta name="robots" content="noindex, follow">
-  <meta property="og:title" content="Ordin — Recurring payments. Your terms.">
+  <meta property="og:title" content="Ordin | Recurring payments. Your terms.">
   <meta property="og:description" content="You authorize the rules. Your merchant requests payment. Ordin checks before tokens move.">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Ordin">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="Ordin — Recurring payments. Your terms.">
+  <meta name="twitter:title" content="Ordin | Recurring payments. Your terms.">
   <meta name="twitter:description" content="Fixed amount. Approved recipient. One collection per period. Permission stays yours.">
   <link rel="alternate" type="text/markdown" href="./index.md" title="Ordin in Markdown">
   <link rel="describedby" type="text/markdown" href="./llms.txt">
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%20120%22%20fill%3D%22none%22%20stroke%3D%22%23EAE3DE%22%20stroke-width%3D%222%22%20aria-hidden%3D%22true%22%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cellipse%20cx%3D%2248%22%20cy%3D%2260%22%20rx%3D%2245%22%20ry%3D%2257%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2088V46%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2058c-8-2-14-8-16-16%209%200%2015%205%2016%2016Zm0%200c8-2%2014-8%2016-16-9%200-15%205-16%2016Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2074c-9-2-15-8-17-17%2010%200%2016%206%2017%2017Zm0%200c9-2%2015-8%2017-17-10%200-16%206-17%2017Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2046c-6-3-9-9-8-16%206%203%209%209%208%2016Zm0%200c6-3%209-9%208-16-6%203-9%209-8%2016Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M30%2044c-5%201-9-1-12-5%205-2%209-1%2012%205Zm36%200c5%201%209-1%2012-5-5-2-9-1-12%205Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fsvg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2096%20120%22%20fill%3D%22none%22%20stroke%3D%22%23142B40%22%20stroke-width%3D%222%22%20aria-hidden%3D%22true%22%3E%3Cstyle%3E%40media%20%28prefers-color-scheme%3Adark%29%7Bsvg%7Bstroke%3A%23EAE3DE%7D%7D%3C%2Fstyle%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cellipse%20cx%3D%2248%22%20cy%3D%2260%22%20rx%3D%2245%22%20ry%3D%2257%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2088V46%22%20stroke-linecap%3D%22round%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2058c-8-2-14-8-16-16%209%200%2015%205%2016%2016Zm0%200c8-2%2014-8%2016-16-9%200-15%205-16%2016Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2074c-9-2-15-8-17-17%2010%200%2016%206%2017%2017Zm0%200c9-2%2015-8%2017-17-10%200-16%206-17%2017Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M48%2046c-6-3-9-9-8-16%206%203%209%209%208%2016Zm0%200c6-3%209-9%208-16-6%203-9%209-8%2016Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%20%20%3Cpath%20d%3D%22M30%2044c-5%201-9-1-12-5%205-2%209-1%2012%205Zm36%200c5%201%209-1%2012-5-5-2-9-1-12%205Z%22%2F%3E%0A%20%20%20%20%20%20%20%20%20%20%3C%2Fsvg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
-  <title>Ordin — Recurring payments. Your terms.</title>
+  <title>Ordin | Recurring payments. Your terms.</title>
   <!-- deployment-metadata -->
-  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"#website","name":"Ordin","inLanguage":"en"},{"@type":"WebPage","@id":"#page","name":"Ordin — Recurring payments. Your terms.","isPartOf":{"@id":"#website"},"about":{"@id":"#protocol"},"inLanguage":"en"},{"@type":"SoftwareApplication","@id":"#protocol","name":"Ordin","applicationCategory":"DeveloperApplication","operatingSystem":"EVM","description":"A local prototype recurring-payment protocol for EVM wallets, targeting Whitechain. Owners authorize fixed payment policies; authorized spenders request collection; the contract checks the rules and transfers tokens directly to the approved recipient. Not deployed or audited."}]}</script>
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"WebSite","@id":"#website","name":"Ordin","inLanguage":"en"},{"@type":"WebPage","@id":"#page","name":"Ordin | Recurring payments. Your terms.","isPartOf":{"@id":"#website"},"about":{"@id":"#protocol"},"inLanguage":"en"},{"@type":"SoftwareApplication","@id":"#protocol","name":"Ordin","applicationCategory":"DeveloperApplication","operatingSystem":"EVM","description":"A recurring-payment protocol for EVM wallets, live on Whitechain testnet. Owners authorize fixed payment policies; authorized spenders request collection; the contract checks the rules and transfers tokens directly to the approved recipient. Testnet only. Not audited."}]}</script>
   <style>
-    html, body { background:#142B40 !important; color:#EAE3DE; }
+    html, body { background:#000000 !important; color:#EAE3DE; }
     *,*::before,*::after { box-sizing:border-box; margin:0; padding:0; }
-    :root { --bg:#142B40; --text:#EAE3DE; --muted:#b4c4c6; --teal:#8ABCB2; --border:rgba(234,227,222,.2); --logo:22px; --logo-mark:26px; --nav:13px; --nav-h:40px; --btn:13px; --btn-h:40px; --hero-btn-h:44px; --h1:54px; --lede:15.5px; --badge:11px; --stat-size:12px; --header-y:22px; --header-x:40px; --stats-x:64px; --stats-y:32px; --hero-gap:70px; --copy-max:860px; --lede-max:530px; }
-    html,body { background:#142B40; background:var(--bg,#142B40); color:#EAE3DE; color:var(--text,#EAE3DE); }
+    :root { --bg:#000000; --text:#EAE3DE; --muted:#b4c4c6; --teal:#8ABCB2; --border:rgba(234,227,222,.2); --logo:22px; --logo-mark:26px; --nav:13px; --nav-h:40px; --btn:13px; --btn-h:40px; --hero-btn-h:44px; --h1:54px; --lede:15.5px; --badge:11px; --stat-size:12px; --header-y:22px; --header-x:40px; --stats-x:64px; --stats-y:32px; --hero-gap:70px; --copy-max:860px; --lede-max:530px; }
+    html,body { background:#000000; background:var(--bg,#000000); color:#EAE3DE; color:var(--text,#EAE3DE); }
     html { scroll-behavior:smooth; }
     body { font-family:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif; -webkit-font-smoothing:antialiased; -moz-osx-font-smoothing:grayscale; text-rendering:optimizeLegibility; overflow-x:hidden; position:relative; }
     a { color:inherit; text-decoration:none; }
@@ -88,14 +88,69 @@
     @media(min-width:901px) and (max-width:1279px){:root{--logo:21px;--nav:12px;--nav-h:36px;--btn:12px;--btn-h:38px;--hero-btn-h:40px;--h1:42px;--lede:15px;--badge:11px;--stat-size:12px;--header-y:16px;--header-x:28px;--stats-x:36px;--stats-y:26px;--hero-gap:50px;--copy-max:760px;--lede-max:500px}#site-nav a{padding:0 13px}.badge{margin-bottom:16px}.lede{margin-top:14px}.hero-actions{margin-top:20px}.flow{gap:22px}}
     @media(min-width:901px) and (max-height:850px){:root{--header-y:14px;--stats-y:22px;--hero-gap:42px;--h1:40px}.badge{margin-bottom:12px}.lede{margin-top:12px}.hero-actions{margin-top:16px}.status-line{margin-top:18px;padding-top:13px}}
     @media(min-width:901px) and (max-height:720px){:root{--h1:34px;--lede:14px;--hero-gap:28px;--stats-y:16px;--nav-h:30px;--btn-h:34px;--hero-btn-h:36px}.badge{margin-bottom:8px}.hero{padding-top:12px}.how-link{margin-top:12px}.stat p{font-size:10px}.status-line{margin-top:12px;padding-top:8px}}
-    @media(min-width:901px) and (min-height:580px){html,body{height:100%;overflow:hidden}.page{height:100vh;height:100dvh;overflow:hidden}}
+
     @media(max-width:900px){:root{--logo:23px;--btn:13px;--btn-h:42px;--hero-btn-h:48px;--h1:40px;--lede:16px;--badge:12px;--stat-size:13px;--header-y:16px;--header-x:18px;--stats-x:28px;--stats-y:24px;--hero-gap:40px}html,body{height:auto;overflow-y:auto}.header{grid-template-columns:1fr auto auto;gap:8px;padding:max(var(--header-y),env(safe-area-inset-top)) max(var(--header-x),env(safe-area-inset-right)) 10px max(var(--header-x),env(safe-area-inset-left))}.logo,.header-cta,.burger{z-index:80}.burger{display:grid}.menu-backdrop{display:block;position:fixed;inset:0;z-index:40;background:#1023336b;opacity:0;visibility:hidden;transition:opacity .28s,visibility .28s;pointer-events:none}.menu-open .menu-backdrop{opacity:1;visibility:visible;backdrop-filter:blur(24px);-webkit-backdrop-filter:blur(24px);pointer-events:auto}#site-nav{position:fixed;inset:0;z-index:45;flex-direction:column;justify-content:center;gap:12px;padding:96px 22px 32px;padding-top:max(96px,calc(env(safe-area-inset-top) + 88px));opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s,visibility .28s}#site-nav a{width:min(100%,460px);height:56px;justify-content:center;font-size:19px;border-radius:10px}.menu-open #site-nav{opacity:1;visibility:visible;pointer-events:auto}.menu-open{overflow:hidden}.hero{padding:100px 22px 52px;align-items:flex-end;min-height:480px}.hero-copy,.lede{max-width:100%}.flow{grid-template-columns:1fr;gap:22px;max-width:470px;margin:auto}.stat p{max-width:none;font-size:12px}.stat-number{margin-top:1px}.status-line{max-width:470px;margin-inline:auto;font-size:8px;flex-wrap:wrap}.hero-photo{position:fixed}.hero-photo video{object-position:55% center}.how-link{font-size:11px}}
     @media(max-width:560px){:root{--h1:35px;--lede:15px;--header-x:16px}.hero{padding-top:82px}.hero-actions{flex-direction:column;width:min(100%,330px);gap:12px}.hero-actions .btn{width:100%}.header-cta{font-size:10px;padding-inline:11px;height:36px}.logo{font-size:21px}.logo .brand-mark{width:23px;height:29px}.badge{font-size:10px}.stat{gap:12px}.status-line{line-height:1.6}}
     @media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}*,*::before,*::after{transition:none!important;animation:none!important}.appear,.hero-photo,.hero h1 em,.badge-star{opacity:1;transform:none;clip-path:none;filter:none}.hero-photo video{display:none}.media-toggle{display:none}}
+    /* The same visual language, one idea at a time. */
+    html { scroll-padding-top:32px; }
+    html,body { height:auto; overflow-y:auto; }
+    .intro { position:relative; isolation:isolate; min-height:100svh; }
+    .hero-photo { position:absolute; inset:0; }
+    .page { height:auto; min-height:100svh; grid-template-rows:auto 1fr auto; overflow:visible; }
+    .hero { padding-bottom:72px; min-height:510px; }
+    .hero .lede { max-width:480px; }
+    .intro-bottom { display:flex; justify-content:space-between; align-items:center; gap:24px; padding:0 var(--header-x) 28px; }
+    .scroll-cue { display:flex; gap:15px; align-items:center; color:#b6c8c3; font-size:10px; }.scroll-cue span { font-size:16px; }.scroll-cue:hover { color:var(--text); }
+    .chapter { padding:clamp(85px,10vw,150px) 48px; background:var(--bg); }
+    .chapter-inner { max-width:1120px; margin:0 auto; }
+    .split-layout { display:grid; grid-template-columns:1fr 1fr; gap:clamp(55px,9vw,140px); align-items:center; }
+    .section-label { display:block; font-size:10px; color:var(--teal); font-weight:400; letter-spacing:.12em; text-transform:uppercase; }
+    .chapter h2 { margin-top:25px; font-size:clamp(36px,4vw,55px); font-weight:400; letter-spacing:-.055em; line-height:1.15; }
+    .chapter h2 em { font-family:"Instrument Serif","Times New Roman",Times,serif; font-weight:400; color:#9dc3b8; letter-spacing:-.03em; font-size:1.08em; }
+    .chapter-copy>p,.chapter-heading>p,.builder-row p { margin-top:23px; color:#aaaead; font-size:14px; line-height:1.8; max-width:430px; }
+    .setup-list { list-style:none; margin-top:35px; display:flex; flex-direction:column; gap:28px; }
+    .setup-list>li { display:flex; gap:17px; }.setup-list>li>span { display:grid; place-items:center; width:25px; height:25px; flex-shrink:0; border:1px solid #ffffff24; border-radius:50%; color:#9bbfb6; font-size:10px; margin-top:2px; }.setup-list h3 { font-size:14px; font-weight:500; line-height:1.6; }.setup-list p { color:#aaaead; font-size:12px; line-height:1.8; margin-top:7px; max-width:315px; }
+    .agreement-visual { max-width:410px; width:100%; justify-self:end; }
+    .access-line { display:flex; gap:8px; align-items:center; color:#b4b9b6; font-size:9px; margin-bottom:17px; }.access-line svg { width:16px; height:16px; }.access-line i { height:1px; flex:1; background:#8abcb23b; }.access-line svg:last-child { color:#9dc3b8; }
+    .payment-agreement { border:1px solid #ffffff24; background:linear-gradient(135deg,#ffffff0f,#ffffff03); border-radius:12px; box-shadow:0 20px 55px -35px #000000bb,inset 0 1px #eae3de0c; overflow:hidden; }
+    .agreement-heading { display:flex; justify-content:space-between; align-items:center; padding:21px 25px; color:#aeb5b1; font-size:8px; letter-spacing:.13em; border-bottom:1px solid #ffffff14; }.agreement-dot{width:5px;height:5px;border-radius:50%;background:#9dc3b8;box-shadow:0 0 10px #9dc3b838}
+    .policy-amount { padding:25px 27px 20px; font-size:60px; letter-spacing:-.065em; font-weight:400; }.policy-amount>span { font-size:17px; color:#a6afaa; letter-spacing:-.02em; padding-left:5px; }
+    .payment-agreement dl { padding:0 27px 26px; }.payment-agreement dl>div { display:flex; justify-content:space-between; gap:15px; padding:11px 0; font-size:11px; border-bottom:1px solid #ffffff12; }.payment-agreement dt{color:#a3aaa7}.payment-agreement dd{text-align:right}
+    .agreement-signature { display:flex; gap:8px; align-items:center; padding:17px 27px; font-size:10px; color:#b0cec1; background:#8abcb20a; border-top:1px solid #ffffff12; }.agreement-signature svg{width:16px;height:16px}
+    .visual-caption { color:#939b97; font-size:9px; text-align:center; margin-top:17px; line-height:1.7; }
+    .chapter .btn-ghost { background:linear-gradient(135deg,#ffffff12,#ffffff03); border-color:#ffffff36; }
+    .chapter .btn-ghost:hover { background:linear-gradient(135deg,#ffffff1c,#8abcb20c); border-color:#8abcb28c; }
+    .renewal-section { background:#050606; }
+    .chapter-heading { text-align:center; }.chapter-heading>p{margin-inline:auto;max-width:580px}.chapter-heading h2{margin-top:22px}
+    .renewal-demo { max-width:900px; margin:55px auto 0; }
+    .flow-lane { display:grid; grid-template-columns:110px 1fr 1.2fr 1fr; align-items:center; gap:18px; }
+    .lane-label { font-size:8px; letter-spacing:.1em; color:#949c98; }
+    .flow-actor { display:flex; flex-direction:column; align-items:center; text-align:center; gap:10px; }.actor-symbol{width:49px;height:49px;border:1px solid #ffffff29;background:linear-gradient(135deg,#ffffff14,#ffffff04);border-radius:13px;display:grid;place-items:center;color:#adcfc2}.actor-symbol svg{width:23px;height:23px}.ordin-symbol{font-family:"Instrument Serif",Georgia,serif;font-size:40px;line-height:1}.flow-actor strong{font-size:13px;font-weight:500}.flow-actor small{font-size:9px;color:#a0a7a3;line-height:1.6;max-width:24ch}
+    .flow-route { align-self:center; padding-bottom:20px; min-width:0; }.flow-route>span{display:block;text-align:center;font-size:9px;color:#aab2ad;margin-bottom:13px}.route-line{position:relative;display:block;width:100%;height:1px;background:#8abcb233}.route-line::after{content:'';position:absolute;right:0;top:-3px;width:7px;height:7px;border-top:1px solid #8abcb266;border-right:1px solid #8abcb266;transform:rotate(45deg)}.route-line b{display:block;position:absolute;top:-3px;left:0;width:7px;height:7px;border-radius:50%;background:#b9d7c9;box-shadow:0 0 16px #8abcb2aa;opacity:0}
+    .policy-checks { display:flex; justify-content:flex-end; flex-wrap:wrap; gap:8px; padding:23px 0 30px; margin:0 0 30px 128px; border-bottom:1px solid #ffffff14; }.policy-checks span{font-size:8px;border:1px solid #ffffff1c;border-radius:4px;padding:5px 8px;color:#a4ada7;transition:color .4s,border-color .4s,background .4s}
+    .demo-actions { display:flex; align-items:center; gap:22px; margin-top:45px; padding-top:30px; border-top:1px solid #ffffff1f; }.demo-actions .btn{font-size:11px}.demo-next{background:none;border:0;color:#9cbdb4;font-size:10px;padding:10px 0}.demo-next:hover{text-decoration:underline;text-underline-offset:4px}.demo-period{margin-left:auto;color:#a0a9a3;font-size:9px;letter-spacing:.07em}.demo-result{font-size:12px;color:#adc9bd;text-align:center;min-height:42px;line-height:1.7;margin-top:24px}.renewal-demo>.visual-caption{margin-top:0}
+    .renewal-demo[data-state="checking"] .request-lane .route-line b{animation:route-travel 1s ease-in-out forwards}.renewal-demo[data-state="transfer"] .transfer-lane .route-line b{animation:route-travel 1s ease-in-out forwards}.renewal-demo[data-state="transfer"] .policy-checks span,.renewal-demo[data-state="paid"] .policy-checks span{color:#c3d9cc;border-color:#8abcb263;background:#8abcb20c}.renewal-demo[data-state="blocked"] .demo-result{color:#d6beac}.renewal-demo[data-state="cancelled"] .route-line{opacity:.3}
+    button:disabled{opacity:.45;cursor:not-allowed}
+    .control-section .chapter-copy>.btn{margin-top:27px;font-size:11px}.control-visual{padding:10px 0}.control-row{display:flex;justify-content:space-between;align-items:center;gap:12px;font-size:12px;padding:0 0 25px;border-bottom:1px solid #ffffff1f}.policy-status{display:flex;align-items:center;gap:7px;color:#aacdbd;font-size:10px}.policy-status i{width:5px;height:5px;background:currentColor;border-radius:50%}
+    .control-periods{display:flex;align-items:center;gap:10px;margin:35px 0}.control-periods>span{display:flex;flex-direction:column;align-items:center;gap:11px;font-size:9px;white-space:nowrap;color:#b0b8b2}.control-periods>span svg{width:34px;height:34px;padding:9px;border:1px solid #ffffff26;border-radius:50%}.control-periods>i{height:1px;flex:1;background:#ffffff1f}.control-visual>p:not(.visual-caption){font-size:12px;line-height:1.7;color:#b9c2bb}.control-visual .visual-caption{text-align:left}.control-visual.is-cancelled .future-period{opacity:.35}.control-visual.is-cancelled .policy-status{color:#d6beac}.reset-example{display:block;border:0;background:transparent;padding:13px 0 0;color:#a8c7ba;font-size:10px;text-decoration:underline;text-underline-offset:4px}
+    .builders-section{padding-top:0;padding-bottom:0}.builder-row{padding:65px 0;display:flex;align-items:center;justify-content:space-between;gap:45px;border-block:1px solid #ffffff1c}.builder-row .btn{font-size:12px;flex-shrink:0}.builder-row h2{font-size:43px}.builder-row p{font-size:13px}
+    .faq-section .split-layout{align-items:start}.questions-list{border-top:1px solid #ffffff1f}.questions-list details{border-bottom:1px solid #ffffff1f}.questions-list summary{list-style:none;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:23px 0;cursor:pointer;font-size:13px;line-height:1.5}.questions-list summary::-webkit-details-marker{display:none}.questions-list summary>span{font-size:20px;font-weight:300;color:#8abcb2;transition:transform .3s}.questions-list details[open] summary>span{transform:rotate(45deg)}.questions-list details p{font-size:12px;line-height:1.85;color:#a8b0aa;padding:0 10px 24px 0}
+    .site-bottom{max-width:1216px;margin:0 auto;display:flex;align-items:center;gap:35px;padding:30px 48px 35px;border-top:1px solid #ffffff1c}.footer-wordmark{font-size:23px;font-weight:500;letter-spacing:-.05em}.site-bottom nav{display:flex;gap:24px;font-size:10px;color:#aeb7b0}.site-bottom nav a:hover{text-decoration:underline;text-underline-offset:3px}.site-bottom>span{margin-left:auto;color:#969f99;font-size:8px}
+    .reveal{opacity:1;transform:none;transition:opacity .85s cubic-bezier(.22,1,.36,1),transform .85s cubic-bezier(.22,1,.36,1)}.reveal.ready:not(.in){opacity:0;transform:translateY(20px)}
+    @keyframes route-travel{0%{left:0;opacity:0}12%{opacity:1}88%{opacity:1}100%{left:calc(100% - 7px);opacity:0}}
+    @media(min-width:1600px){.chapter-inner{max-width:1260px}.chapter h2{font-size:62px}.chapter-copy>p,.chapter-heading>p{font-size:16px}.setup-list p{font-size:13px}.setup-list h3{font-size:15px}.hero{padding-bottom:105px}}
+    @media(max-width:1000px){.chapter{padding:90px 32px}.split-layout{gap:45px}.chapter h2{font-size:41px}.access-line{font-size:8px}.flow-lane{grid-template-columns:80px 1fr 1.2fr 1fr;gap:12px}.policy-checks{margin-left:92px}.builders-section{padding-top:0;padding-bottom:0}.site-bottom{padding-inline:32px}}
+    @media(max-width:720px){.intro{min-height:100svh}.page{min-height:100svh}.hero{padding:80px 24px 60px;min-height:490px}.intro-bottom{padding:0 24px 23px;align-items:flex-end}.scroll-cue{font-size:8px;gap:9px;max-width:210px;line-height:1.6}.media-toggle{font-size:8px;white-space:nowrap}.chapter{padding:70px 25px}.split-layout{grid-template-columns:1fr;gap:40px}.chapter h2{font-size:42px;margin-top:19px}.section-label{font-size:9px}.chapter-copy>p,.chapter-heading>p{font-size:13px;margin-top:19px}.setup-list{margin-top:28px;gap:24px}.setup-list p{font-size:12px;max-width:none}.agreement-visual{justify-self:center;max-width:440px}.access-line{font-size:9px}.chapter-heading{text-align:left}.chapter-heading>p br{display:none}.renewal-demo{margin-top:35px}.flow-lane{grid-template-columns:1fr .9fr 1fr;gap:8px}.lane-label{grid-column:1/-1;margin-bottom:17px}.flow-actor{gap:9px}.flow-actor strong{font-size:12px}.flow-actor small{font-size:8px;max-width:15ch}.actor-symbol{width:43px;height:43px}.flow-route>span{font-size:8px;line-height:1.5}.flow-route{padding-bottom:28px}.policy-checks{justify-content:flex-start;margin:0 0 24px;padding:21px 0 24px;gap:6px}.policy-checks span{font-size:7px;padding:5px 6px}.demo-actions{flex-wrap:wrap;gap:15px;margin-top:30px;padding-top:24px}.demo-actions .btn{font-size:10px;flex:1;gap:10px}.demo-next{font-size:9px}.demo-period{width:100%;margin:0;font-size:8px}.demo-result{font-size:11px;min-height:58px;margin-top:17px}.visual-caption{font-size:8px}.control-periods{margin:28px 0}.control-row{font-size:12px}.control-visual>p:not(.visual-caption){font-size:11px}.builders-section{padding-block:0}.builder-row{display:block;padding:45px 0}.builder-row .btn{margin-top:25px;font-size:11px}.builder-row h2{font-size:40px}.faq-section .split-layout{gap:27px}.questions-list summary{font-size:12px;padding:21px 0}.site-bottom{padding:25px;gap:22px;flex-wrap:wrap}.site-bottom nav{gap:18px;font-size:9px;margin-left:auto}.site-bottom>span{width:100%;margin-left:0;font-size:8px}}
+    @media(max-width:359px){.chapter{padding-inline:20px}.chapter h2{font-size:36px}.demo-actions .btn{font-size:9px;padding-inline:10px}.site-bottom nav{gap:12px}.intro-bottom{padding-inline:20px}}
+    @media(prefers-reduced-motion:reduce){.reveal.ready:not(.in){opacity:1;transform:none}.route-line b{animation:none!important}}
+
   </style>
 </head>
-<body style="background:#142B40;color:#EAE3DE">
-  <a class="skip-link" href="#top">Skip to content</a>
+<body style="background:#000000;color:#EAE3DE">
+  <a class="skip-link" href="#main-content">Skip to content</a>
+  <main id="main-content">
+  <div class="intro">
   <div class="hero-photo" aria-hidden="true"><video id="hero-video" autoplay muted loop playsinline preload="metadata" src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260818_072341_50851634-bbc3-4c33-9acc-7647d4db44aa.mp4"></video></div>
   <div class="page">
     <div class="menu-backdrop"></div>
@@ -110,30 +165,79 @@
           </svg><span>Ordin</span></a>
       <nav id="site-nav" aria-label="Primary">
         <a class="appear appear--scale" style="--d:.16s" href="#how">How it works</a>
-        <a class="appear appear--soft" style="--d:.28s" href="./README.md#billing-behavior">Payment rules</a>
-        <a class="appear appear--scale" style="--d:.40s" href="./README.md#sdk-integration">For builders</a>
+        <a class="appear appear--soft" style="--d:.28s" href="#control">Your control</a>
+        <a class="appear appear--scale" style="--d:.40s" href="#builders">For builders</a>
       </nav>
       <a class="btn btn-solid header-cta appear appear--scale" style="--d:.34s" href="./README.md">Explore the protocol</a>
       <button class="burger appear appear--scale" style="--d:.34s" type="button" aria-controls="site-nav" aria-expanded="false" aria-label="Open menu"><span></span><span></span><span></span></button>
     </header>
-    <main class="hero" id="top">
+    <section class="hero" id="top">
       <div class="hero-copy">
-        <div class="badge appear appear--pop" style="--d:.22s"><svg class="badge-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/></svg>Recurring payments for your wallet</div>
+        <div class="badge appear appear--pop" style="--d:.22s"><svg class="badge-star" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6C12.55 2.6 12.88 3.15 13.08 4.7c.62 4.7 1.52 5.6 6.22 6.22 1.55.2 2.1.53 2.1 1.08s-.55.88-2.1 1.08c-4.7.62-5.6 1.52-6.22 6.22-.2 1.55-.53 2.1-1.08 2.1s-.88-.55-1.08-2.1c-.62-4.7-1.52-5.6-6.22-6.22C3.15 12.88 2.6 12.55 2.6 12s.55-.88 2.1-1.08c4.7-.62 5.6-1.52 6.22-6.22C11.12 3.15 11.45 2.6 12 2.6Z"/></svg>Live on Whitechain testnet</div>
         <h1><span class="headline-line"><span class="appear appear--mask" style="--d:.42s">Payments on repeat.</span></span><span class="headline-line"><span class="appear appear--mask" style="--d:.62s">Always <em>on your terms.</em></span></span></h1>
-        <p class="lede appear appear--soft" style="--d:.82s">Approve the amount, recipient, and schedule once. Your merchant requests each payment. Ordin checks the rules before tokens leave your wallet.</p>
-        <div class="hero-actions"><a class="btn btn-solid appear appear--btn" style="--d:.96s" href="#how">See how payments flow <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></a><a class="btn btn-ghost appear appear--side" style="--d:1.10s" href="./README.md#example">Explore a 5 USDT example</a></div>
-        <a class="how-link appear appear--soft" style="--d:1.15s" href="./README.md#payment-lifecycle">Confirmed cancellation stops future collections.</a>
+        <p class="lede appear appear--soft" style="--d:.82s">Recurring token payments, with rules you control.
+          Your funds stay in your wallet until collected.</p>
+        <div class="hero-actions"><a class="btn btn-solid appear appear--btn" style="--d:.96s" href="#how">See how payments flow <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="M12 4v16m-6-6 6 6 6-6"/></svg></a><a class="btn btn-ghost appear appear--side" style="--d:1.10s" href="#renewals">See a payment happen</a></div>
+
       </div>
-    </main>
-    <footer class="stats" id="how" aria-label="How Ordin payments work">
-      <ol class="flow">
-        <li class="stat appear appear--stat" style="--d:1.12s"><span class="stat-number" aria-hidden="true">01</span><div><strong>You authorize</strong><p>Approve token access, then authorize a policy: 5 USDT to your merchant every 30 days.</p></div></li>
-        <li class="stat appear appear--stat" style="--d:1.28s"><span class="stat-number" aria-hidden="true">02</span><div><strong>Your merchant requests</strong><p>The authorized spender submits each collection. The contract doesn’t run a timer.</p></div></li>
-        <li class="stat appear appear--stat" style="--d:1.44s"><span class="stat-number" aria-hidden="true">03</span><div><strong>Ordin checks, then transfers</strong><p>If eligible, exactly 5 USDT moves from your wallet to the recipient. Once per period.</p></div></li>
-      </ol>
-      <div class="status-line"><a href="./README.md#verification-before-deployment">In development · Not deployed or audited</a><button class="media-toggle" type="button" aria-label="Pause background animation" aria-pressed="false"><svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 2h2v8H3zm4 0h2v8H7z"/></svg><span>Pause motion</span></button></div>
-    </footer>
+    </section>
+    <div class="intro-bottom"><a href="#how" class="scroll-cue">A simple agreement. See how it works <span aria-hidden="true">↓</span></a><button class="media-toggle" type="button" aria-label="Pause background animation" aria-pressed="false"><svg viewBox="0 0 12 12" fill="currentColor" aria-hidden="true"><path d="M3 2h2v8H3zm4 0h2v8H7z"/></svg><span>Pause motion</span></button></div>
   </div>
+  </div>
+  <section class="chapter setup-section" id="how" aria-labelledby="setup-title">
+    <div class="chapter-inner split-layout">
+      <div class="chapter-copy reveal">
+        <span class="section-label">01 / Set up once</span>
+        <h2 id="setup-title">A little permission.<br><em>A clear agreement.</em></h2>
+        <ol class="setup-list">
+          <li><span>1</span><div><h3>Approve token access.</h3><p>Allow the Ordin contract to transfer your chosen token. Your funds stay in your wallet.</p></div></li>
+          <li><span>2</span><div><h3>Authorize your payment rules.</h3><p>Choose who gets paid, how much, and how often. Token access alone doesn’t authorize a payment.</p></div></li>
+        </ol>
+      </div>
+      <div class="agreement-visual reveal">
+        <div class="access-line"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="6" width="18" height="15" rx="3"/><path d="M3 8V5a2 2 0 0 1 2-2h13v3m-2 6h6v5h-6z"/></svg><span>Your wallet</span><i></i><span>Token access approved</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></div>
+        <div class="payment-agreement">
+          <div class="agreement-heading"><span>YOUR PAYMENT POLICY</span><span class="agreement-dot"></span></div>
+          <div class="policy-amount">5 <span>USDT</span></div>
+          <dl><div><dt>To</dt><dd>Your merchant</dd></div><div><dt>Every</dt><dd>30 days</dd></div><div><dt>Limit</dt><dd>One payment per period</dd></div></dl>
+          <div class="agreement-signature"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="m12 3 8 3v6c0 5-8 9-8 9s-8-4-8-9V6z"/><path d="m8 12 3 3 5-6"/></svg> Authorized by you.</div>
+        </div>
+        <p class="visual-caption">Illustrative terms. No tokens move during setup.</p>
+      </div>
+    </div>
+  </section>
+  <section class="chapter renewal-section" id="renewals" aria-labelledby="renewal-title">
+    <div class="chapter-inner">
+      <div class="chapter-heading reveal"><span class="section-label">02 / Each billing period</span><h2 id="renewal-title">The merchant asks.<br><em>Ordin checks.</em></h2><p>A merchant backend or external scheduler submits each collection.<br>The contract enforces your rules. It doesn’t run a timer.</p></div>
+      <div class="renewal-demo reveal" id="payment-demo" data-state="ready" aria-label="Illustrative payment flow">
+        <div class="flow-lane request-lane"><span class="lane-label">01 · REQUEST</span><div class="flow-actor"><span class="actor-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M4 9v12h16V9M2 9l3-6h14l3 6M2 9q2 4 4 0 2 4 4 0 2 4 4 0 2 4 4 0 2 4 4 0M9 21v-7h6v7"/></svg></span><strong>Merchant</strong><small>Authorized spender</small></div><div class="flow-route"><span>Requests collection</span><i class="route-line"><b></b></i></div><div class="flow-actor"><span class="actor-symbol ordin-symbol">o</span><strong>Ordin</strong><small>Checks your policy</small></div></div>
+        <div class="policy-checks"><span>Fixed amount</span><span>Approved recipient</span><span>Eligible period</span><span>Not already paid</span></div>
+        <div class="flow-lane transfer-lane"><span class="lane-label">02 · TRANSFER</span><div class="flow-actor"><span class="actor-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><rect x="3" y="6" width="18" height="15" rx="3"/><path d="M3 8V5a2 2 0 0 1 2-2h13v3m-2 6h6v5h-6z"/></svg></span><strong>Your wallet</strong><small>Funds stay here until collected</small></div><div class="flow-route"><span>Exactly 5 USDT</span><i class="route-line"><b></b></i></div><div class="flow-actor"><span class="actor-symbol"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.4" aria-hidden="true"><path d="M3 19h18M5 19V9m5 10V9m4 10V9m5 10V9M2 8l10-5 10 5z"/></svg></span><strong>Recipient</strong><small>The address you approved</small></div></div>
+        <div class="demo-actions"><button class="btn btn-solid" id="collect-example" type="button">Run a 5 USDT collection <span aria-hidden="true">↗</span></button><button class="demo-next" id="next-period" type="button">Next billing period →</button><span class="demo-period" id="demo-period">Period 01</span></div>
+        <p class="demo-result" id="demo-result" role="status" aria-live="polite">Try a collection to see the request, checks, and transfer.</p>
+        <p class="visual-caption">Interactive illustration only. No wallet connection or real transactions.</p>
+      </div>
+    </div>
+  </section>
+  <section class="chapter control-section" id="control" aria-labelledby="control-title">
+    <div class="chapter-inner split-layout">
+      <div class="chapter-copy reveal"><span class="section-label">03 / Stay in control</span><h2 id="control-title">Permission is yours.<br><em>So is the off switch.</em></h2><p>Once cancellation is confirmed onchain, future collections stop. Previous payments aren’t refunded.</p><button class="btn btn-ghost" id="cancel-example" type="button">Try cancelling the policy <span aria-hidden="true">↗</span></button></div>
+      <div class="control-visual reveal" id="control-visual"><div class="control-row"><span>Future collections</span><span class="policy-status" id="policy-status"><i></i> Allowed</span></div><div class="control-periods"><span>Paid <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="m5 12 4 4L19 6"/></svg></span><i></i><span class="future-period">Next period <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span><i></i><span class="future-period">And after <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" aria-hidden="true"><path d="M5 12h14m-5-5 5 5-5 5"/></svg></span></div><p id="control-result" role="status" aria-live="polite">You can cancel future payments at any time.</p><button class="reset-example" id="reset-example" type="button" hidden>Reset the illustration ↺</button><p class="visual-caption">Continuing after a real cancellation requires a new policy.</p></div>
+    </div>
+  </section>
+  <section class="chapter builders-section" id="builders" aria-labelledby="builders-title">
+    <div class="chapter-inner builder-row reveal"><div><span class="section-label">For builders</span><h2 id="builders-title">Your app.<br><em>Their permission.</em></h2><p>A Solidity contract and TypeScript SDK.<br>Connect your collection workflow to the rules.</p></div><a class="btn btn-solid" href="./README.md#sdk-integration">Read the integration guide <span aria-hidden="true">↗</span></a></div>
+  </section>
+  <section class="chapter faq-section" id="questions" aria-labelledby="questions-title">
+    <div class="chapter-inner split-layout"><div class="chapter-copy reveal"><span class="section-label">A little clarity</span><h2 id="questions-title">Good questions.<br><em>Clear answers.</em></h2></div><div class="questions-list reveal">
+      <details><summary>Who pays for a renewal?<span aria-hidden="true">+</span></summary><p>Your wallet supplies the payment tokens. The account submitting the collection, typically the merchant or its automation, pays the network fee.</p></details>
+      <details><summary>What if my balance is too low?<span aria-hidden="true">+</span></summary><p>The collection fails without a partial payment. It can be retried while the billing period remains eligible. Missed periods don’t accumulate into debt.</p></details>
+      <details><summary>Can the merchant change my terms?<span aria-hidden="true">+</span></summary><p>No. A different amount, recipient, or schedule requires a new owner authorization. Each policy allows only one successful collection per billing period.</p></details>
+      <details><summary>Is Ordin ready to use?<span aria-hidden="true">+</span></summary><p>Ordin is live on Whitechain testnet for testing with test tokens. It is not audited or available on mainnet. <a href="./docs/TESTNET.md">Follow the testnet guide ↗</a></p></details>
+    </div></div>
+  </section>
+  </main>
+  <footer class="site-bottom"><a class="footer-wordmark" href="#top">Ordin</a><nav aria-label="Footer"><a href="./README.md">Protocol</a><a href="./llms.txt">For agents</a><a href="#top">Back to top ↑</a></nav><span>Live on Whitechain testnet · Not audited</span></footer>
   <script>
     (() => {
       const elements = [...document.querySelectorAll('.appear, .hero-photo')];
@@ -153,6 +257,73 @@
       const mediaError = () => { video.hidden = true; motion.hidden = true; }; video.addEventListener('error', mediaError); if (video.error) mediaError();
       motion.addEventListener('click', () => { if (video.paused) video.play().catch(updateMotion); else video.pause(); });
       reduce.addEventListener('change', preference); preference(); updateMotion();
+
+      // This illustration never connects a wallet or submits a transaction.
+      const demo = document.getElementById('payment-demo');
+      const collect = document.getElementById('collect-example');
+      const next = document.getElementById('next-period');
+      const cancel = document.getElementById('cancel-example');
+      const reset = document.getElementById('reset-example');
+      const result = document.getElementById('demo-result');
+      const control = document.getElementById('control-visual');
+      let period = 1, paid = false, cancelled = false, busy = false;
+      let timers = [];
+      const clearTimers = () => { timers.forEach(clearTimeout); timers = []; };
+      const controls = () => { collect.disabled = busy; next.disabled = busy || cancelled; };
+      const finish = () => {
+        paid = true; busy = false; demo.dataset.state = 'paid'; controls();
+        collect.textContent = 'Try collecting again ↗';
+        result.textContent = '5 USDT transferred directly to the recipient. This period is now paid.';
+      };
+      collect.addEventListener('click', () => {
+        if (busy) return;
+        if (cancelled || paid) {
+          demo.dataset.state = 'blocked';
+          result.textContent = cancelled ? 'Blocked: the policy was cancelled. No tokens move.' : 'Blocked: this period is already paid. No second payment can be collected.';
+          return;
+        }
+        busy = true; controls(); demo.dataset.state = 'checking';
+        result.textContent = 'The merchant requests collection. Ordin checks the policy and billing period.';
+        if (reduce.matches) { finish(); return; }
+        timers.push(setTimeout(() => {
+          demo.dataset.state = 'transfer';
+          result.textContent = 'Checks passed. Exactly 5 USDT moves from your wallet to the approved recipient.';
+          timers.push(setTimeout(finish, 1100));
+        }, 1100));
+      });
+      next.addEventListener('click', () => {
+        if (busy || cancelled) return;
+        period += 1; paid = false; demo.dataset.state = 'ready';
+        document.getElementById('demo-period').textContent = 'Period ' + String(period).padStart(2, '0');
+        collect.textContent = 'Run a 5 USDT collection ↗';
+        result.textContent = 'A new eligible billing period. The merchant can request one payment.';
+      });
+      cancel.addEventListener('click', () => {
+        clearTimers(); busy = false; cancelled = true; controls();
+        demo.dataset.state = 'cancelled'; control.classList.add('is-cancelled');
+        document.getElementById('policy-status').innerHTML = '<i></i> Cancelled';
+        document.getElementById('control-result').textContent = 'Cancellation confirmed in this illustration. Future collections are blocked; earlier payments remain unchanged.';
+        result.textContent = 'This policy is cancelled. Try collecting to see it blocked.';
+        cancel.disabled = true; cancel.textContent = 'Cancellation illustrated'; reset.hidden = false;
+      });
+      reset.addEventListener('click', () => {
+        clearTimers(); period = 1; paid = false; cancelled = false; busy = false; controls();
+        demo.dataset.state = 'ready'; control.classList.remove('is-cancelled');
+        document.getElementById('demo-period').textContent = 'Period 01';
+        document.getElementById('policy-status').innerHTML = '<i></i> Allowed';
+        document.getElementById('control-result').textContent = 'You can cancel future payments at any time.';
+        result.textContent = 'Illustration reset. Try a collection to see the request, checks, and transfer.';
+        collect.textContent = 'Run a 5 USDT collection ↗';
+        cancel.disabled = false; cancel.textContent = 'Try cancelling the policy ↗'; reset.hidden = true;
+      });
+      // Content stays visible if observers or scripting are unavailable.
+      if (!reduce.matches && 'IntersectionObserver' in window) {
+        const observer = new IntersectionObserver(entries => entries.forEach(entry => {
+          if (entry.isIntersecting) { entry.target.classList.add('in'); observer.unobserve(entry.target); }
+        }), { threshold: 0.08 });
+        document.querySelectorAll('.reveal').forEach(el => { observer.observe(el); el.classList.add('ready'); });
+      }
+
     })();
   </script>
 </body>

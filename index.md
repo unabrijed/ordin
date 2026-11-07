@@ -1,4 +1,4 @@
-# Ordin — Recurring payments. Your terms.
+# Ordin - Recurring payments. Your terms.
 
 Ordin is a recurring-payment protocol for EVM wallets, targeting Whitechain. It lets a wallet owner approve a fixed amount, recipient, and billing interval. Funds remain in the wallet until a successful collection.
 
@@ -24,9 +24,13 @@ Only one successful collection is permitted per period. A failed collection does
 
 Confirmed onchain cancellation stops future collections. It does not refund earlier payments. A cancelled policy cannot be reactivated; changing terms or continuing payments requires a new owner authorization.
 
+## Interactive illustration
+
+The website includes a local payment-flow illustration: run a 5 USDT collection, retry it to see duplicate blocking, advance the billing period, or cancel future collections. Reset starts the illustration over; it does not reactivate a real cancelled policy. No wallet connection or real transaction occurs.
+
 ## Current status
 
-The contract, TypeScript SDK, local demo, and tests are implemented as a local prototype. Ordin is not deployed to Whitechain or audited. Live USDT compatibility and fully gasless initial token approval remain unverified. This website is informational and does not connect wallets or move tokens.
+Ordin is live on Whitechain testnet for testing with test tokens. The contract, TypeScript SDK, local demo, and tests are implemented. Ordin is not audited or available on mainnet. Fully gasless initial token approval remains unverified. This website is informational and does not connect wallets or move tokens.
 
 ## Read more
 

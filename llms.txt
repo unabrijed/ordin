@@ -2,7 +2,7 @@
 
 > Ordin is a recurring-payment protocol for EVM wallets, targeting Whitechain. Wallet owners authorize fixed payment rules; authorized spenders request collections; the contract enforces those rules.
 
-Ordin is a local prototype, not a deployed or audited production payment service. The website does not connect a wallet or transfer tokens. Live Whitechain USDT compatibility and fully gasless initial token approval are unverified.
+Ordin is live on Whitechain testnet for testing with test tokens. It is not audited or available on mainnet. The website does not connect a wallet or transfer tokens. Fully gasless initial token approval remains unverified.
 
 ## Payment mechanism
 
