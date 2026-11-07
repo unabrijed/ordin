@@ -2,7 +2,7 @@
 
 This walkthrough sends real **testnet** transactions and links each one to the Whitechain explorer. It uses the official USDT token, not a locally minted replacement. Test WBT pays gas; test USDT pays the subscription.
 
-The walkthrough is a manual protocol demonstration. Each `collect` command represents the transaction a merchant or scheduler would submit. There is no background scheduler in this release.
+The walkthrough is a manual protocol demonstration. Each `collect` command represents the transaction a merchant or scheduler would submit. This CLI does not run a scheduler; the [Frame merchant service](FRAME-LIVE.md) supplies the automatic billing workflow.
 
 ## 1. Check the wallet
 
@@ -21,7 +21,7 @@ If WBT is zero, claim it from [the faucet](https://faucet.testnet.whitechain.io)
 ## 2. Configure signing locally
 
 ```sh
-cp .env.example .env
+cp -n .env.example .env
 ```
 
 Edit `.env` locally. Set `PRIVATE_KEY` to a **dedicated testnet wallet's** key, including its `0x` prefix. The signing wallet must have WBT; the policy owner's wallet must also have USDT. Never paste the key into chat or commit `.env`.
@@ -30,18 +30,17 @@ Edit `.env` locally. Set `PRIVATE_KEY` to a **dedicated testnet wallet's** key, 
 
 For the quickest first demo, use the funded wallet as deployer, owner, and spender. Choose a **different wallet you control** as the recipient. That recipient does not need gas merely to receive tokens. This single-signer demonstration proves collection rules but does not demonstrate customer gas sponsorship. The separate-spender variant below does.
 
-## 3. Deploy Ordin
+## 3. Reuse the shared Ordin contract
 
-```sh
-yarn chain deploy
-yarn chain deploy --send
+Set this in the root `.env`:
+
+```dotenv
+ORDIN_ADDRESS=0x8b63f8f355a0ff64b181484c74701f96dab3df65
 ```
 
-The first command estimates deployment without sending a transaction. The second deploys, prints the transaction link, waits for a successful receipt, and prints the contract link.
+The [shared deployment](DEPLOYMENT.md) is already available on Whitechain Sepolia. No deployment command is needed for this walkthrough or for a new merchant integration.
 
-The address is saved in `.ordin/sepolia.json`. Subsequent commands reuse it. The exact compiler input is copied to `.ordin/compiler-input.json`. These local files are gitignored. Deployment refuses to overwrite an existing saved deployment. To use an existing contract, set `ORDIN_ADDRESS` or pass `--contract 0x...`.
-
-If a receipt wait times out after a hash was printed, inspect that hash on the explorer before retrying. A timeout does not mean the transaction failed. Use `yarn chain receipt --hash 0x...` to check it.
+For a deliberate new protocol version only, `yarn deploy:testnet` compiles and broadcasts deployment, then saves its address and compiler input under `.ordin/`. It reuses a configured or saved address. Inspect any existing deployment receipt before deliberately replacing deployment configuration.
 
 ## 4. Approve a small allowance
 
