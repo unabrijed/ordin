@@ -13,7 +13,7 @@ export default defineConfig(({ command }) => {
     root: projectRoot,
     publicDir: false,
     build: {
-      outDir: fileURLToPath(new URL("../dist/", import.meta.url)),
+      outDir: fileURLToPath(new URL("./dist/", import.meta.url)),
       emptyOutDir: true,
     },
     plugins: [

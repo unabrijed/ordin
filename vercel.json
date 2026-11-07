@@ -3,7 +3,7 @@
   "framework": null,
   "installCommand": "yarn --cwd landing install --frozen-lockfile",
   "buildCommand": "yarn --cwd landing build",
-  "outputDirectory": "dist",
+  "outputDirectory": "landing/dist",
   "headers": [
     {
       "source": "/(.*)",

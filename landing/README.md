@@ -20,7 +20,7 @@ yarn --cwd landing build
 yarn --cwd landing test:seo
 ```
 
-The build runs six deployment-metadata tests and the existing TypeScript check, then writes the website to `dist/`. The production site does not need React to render.
+The build runs six deployment-metadata tests and the existing TypeScript check, then writes the website to `landing/dist/`. The production site does not need React to render.
 
 ## Design and content
 
@@ -34,7 +34,9 @@ Import the repository with **Root Directory set to the repository root**, not `l
 
 - Install: `yarn --cwd landing install --frozen-lockfile`
 - Build: `yarn --cwd landing build`
-- Output: `dist`
+- Output: `landing/dist`
+
+If the Vercel dashboard has an Output Directory override, set it to `landing/dist`. The repository root is the build context, not the published folder. Only `landing/dist` is published. This landing project does not run the Frame merchant server or deploy its UI; Frame has a separate server deployment.
 
 Keep Vercel system environment variables enabled. The build reads `VERCEL_PROJECT_PRODUCTION_URL` for canonical and Open Graph URLs. `SITE_URL` can override it later with an HTTPS origin, for example a future custom domain. No example domain is emitted into the real build.
 
