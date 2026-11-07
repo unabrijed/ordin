@@ -11,7 +11,7 @@ yarn --cwd landing install --frozen-lockfile
 yarn --cwd landing dev
 ```
 
-Open Vite's printed URL. Restart an older running server after changing the Vite root. The HTML also opens directly from disk; fonts and the provided background video require network access. Without the video, the navy background and all content remain visible.
+Open Vite's printed URL. Restart an older running server after changing the Vite root. The HTML also opens directly from disk; fonts and the provided background video require network access. Without the video, the black background and all content remain visible.
 
 ## Build and test
 
@@ -20,11 +20,11 @@ yarn --cwd landing build
 yarn --cwd landing test:seo
 ```
 
-The build runs six deployment-metadata tests and the existing TypeScript check, then writes the website to `landing/dist/`. The production site does not need React to render.
+The build runs six deployment-metadata tests and the existing TypeScript check, then writes the website to `dist/`. The production site does not need React to render.
 
 ## Design and content
 
-Single-screen desktop composition using navy, cream, and teal. The oval sprig mark is preserved. Inter is used for the interface; Instrument Serif italic accents the headline. Three bottom items explain owner authorization, a merchant collection request, and contract validation followed by a direct transfer. The page makes no live wallet calls or automatic-collection claims.
+A spacious, scrolling composition using black and charcoal foundations, cream text, and restrained teal accents. The lower sections match the black-and-silver hero video; navy remains in the hero controls. The oval sprig mark is preserved. Inter is used for the interface; Instrument Serif italic accents the headline. Separate sections explain setup, renewal, cancellation, builder integration, and common questions. An interactive illustration shows a collection request, contract checks, and direct transfer; it also demonstrates duplicate-payment blocking, a new billing period, and cancellation. Resetting the illustration does not reactivate a real policy. The page makes no live wallet calls or automatic-collection claims.
 
 The supplied background MP4 has no color overlay. It can be paused and is hidden for reduced-motion preferences. Mobile menus support Escape and close on navigation or desktop resizing. Short/mobile screens may scroll to keep all content reachable.
 
@@ -34,7 +34,7 @@ Import the repository with **Root Directory set to the repository root**, not `l
 
 - Install: `yarn --cwd landing install --frozen-lockfile`
 - Build: `yarn --cwd landing build`
-- Output: `landing/dist`
+- Output: `dist`
 
 Keep Vercel system environment variables enabled. The build reads `VERCEL_PROJECT_PRODUCTION_URL` for canonical and Open Graph URLs. `SITE_URL` can override it later with an HTTPS origin, for example a future custom domain. No example domain is emitted into the real build.
 
