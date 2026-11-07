@@ -1,0 +1,15 @@
+*
+!Dockerfile
+!package.json
+!yarn.lock
+!sdk
+!sdk/**
+!services
+!services/merchant
+!services/merchant/**
+!examples
+!examples/frame
+!examples/frame/**
+**/.env*
+**/node_modules
+**/*.sqlite*
