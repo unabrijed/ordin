@@ -1,5 +1,35 @@
 <!doctype html>
-<html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#f5f4ef"><title>Frame — Make your next launch look the part</title><link rel="stylesheet" href="/style.css"></head>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Frame — Creative tools, powered by Ordin</title>
+<meta name="description" content="Create launch-ready PNG cards with Frame. Explore a live Whitechain testnet subscription powered by Ordin, with automatic USDT renewals and cancellation.">
+<meta name="application-name" content="Frame">
+<meta name="theme-color" content="#183c32">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex, nofollow">
+<link rel="canonical" href="https://frame-api-production-7da3.up.railway.app/">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Frame">
+<meta property="og:locale" content="en_US">
+<meta property="og:title" content="Frame — Good design. On repeat.">
+<meta property="og:description" content="Creative tools with recurring payments on your terms. Try the Ordin subscription demo on Whitechain Sepolia using test USDT.">
+<meta property="og:url" content="https://frame-api-production-7da3.up.railway.app/">
+<meta property="og:image" content="https://frame-api-production-7da3.up.railway.app/social-preview.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Frame: good design on repeat, powered by Ordin.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Frame — Good design. On repeat.">
+<meta name="twitter:description" content="Create launch cards. Test recurring USDT payments with Ordin on Whitechain Sepolia.">
+<meta name="twitter:image" content="https://frame-api-production-7da3.up.railway.app/social-preview.png">
+<meta name="twitter:image:alt" content="Frame: good design on repeat, powered by Ordin.">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+<link rel="manifest" href="/site.webmanifest">
+<link rel="stylesheet" href="/style.css">
+</head>
 <body><div class="shell"><aside><a href="#playground" class="brand"><span class="mark">f</span>frame<span class="brand-dot">®</span></a><div class="workspace">YOUR CREATIVE WORKSPACE</div><nav><button class="nav active" data-tab="playground"><span>▧</span> Playground</button><button class="nav" data-tab="billing"><span>◷</span> Subscription</button><button class="nav" data-tab="api"><span>⌘</span> Developer API</button><div class="nav-label">BEHIND THE PAYMENT</div><button class="nav" data-tab="merchant"><span>↗</span> Merchant view</button></nav><div class="aside-bottom"><div class="small-mark">o</div><p>Good design. On repeat.</p><small>Recurring payments by <strong>Ordin</strong></small><a href="#billing" id="network">Connecting to chain…</a></div></aside><div class="main"><header><div><span class="live-dot"></span><span id="mode">Starting service</span></div><button id="connect" class="wallet">Connect wallet <span>↗</span></button></header><div class="notice" id="notice" role="status" aria-live="polite"></div><main>
 <section id="playground" class="view"><div class="eyebrow">A LITTLE LESS SETUP. A LOT MORE SIGNAL.</div><div class="headline"><h1>Your next launch,<br><em>beautifully framed.</em></h1><p>Turn a few words into a card worth sharing.<br>Made for developers who care how things look.</p></div><div class="studio"><div class="canvas-wrap"><div class="canvas-top"><span><span class="live-dot"></span> LIVE PREVIEW</span><span id="resolution">600 × 315</span></div><img id="preview" alt="Your generated social card" width="1200" height="630"><div class="canvas-bottom"><span id="image-label">Free preview · watermarked</span><span>PNG / RGB</span></div></div><div class="editor"><span class="eyebrow">MAKE IT YOURS</span><label>Headline<textarea id="title" maxlength="60" rows="3">Build something worth sharing.</textarea></label><label>Supporting line<input id="subtitle" maxlength="40" value="An idea. A launch. A little momentum."></label><label>Art direction</label><div class="templates"><button data-template="cobalt" class="swatch cobalt selected" aria-label="Cobalt template"><span>Aa</span>Cobalt</button><button data-template="paper" class="swatch paper" aria-label="Paper template"><span>Aa</span>Paper <small>PRO</small></button><button data-template="midnight" class="swatch midnight" aria-label="Midnight template"><span>Aa</span>Midnight <small>PRO</small></button></div><button id="render" class="primary">Generate free preview <span>↗</span></button><a id="download" class="download" hidden download="frame.png">Download your PNG ↓</a><div class="editor-foot">Built with pixels. Paid on your terms.</div></div></div><div class="pro-strip"><div><span class="tag">FRAME PRO</span><h3>A small subscription.<br>A bigger canvas.</h3></div><p>Full-resolution downloads. Three art directions.<br>An API for your workflow. Cancel whenever.</p><button class="secondary" data-go="billing">Explore Pro →</button></div></section>
 <section id="billing" class="view" hidden><div class="eyebrow">YOUR TERMS. EVERY PAYMENT.</div><h1>Creative freedom.<br><em>Without the fine print.</em></h1><p class="intro">Authorize a fixed amount once. Ordin enforces the terms onchain.</p><div class="billing-grid"><article class="plan"><span class="tag">FRAME PRO · TESTNET DEMO</span><h2>Room to create.</h2><div class="price">1 <span>test USDT / <b id="interval">—</b> seconds</span></div><p>Accelerated billing so you can see renewals happen.</p><ul><li>1200 × 630 PNG downloads</li><li>All three art directions, no watermark</li><li>100 renders per paid window</li><li>API access for your applications</li><li>Three windows maximum · 3 USDT total</li></ul><div class="terms">Initial token approval uses customer gas. The merchant sponsors registration, renewals, and cancellation. Funds stay in your wallet until collected.</div><button id="subscribe" class="primary">Start with Ordin →</button></article><article class="account"><div class="section-head"><h3>Your subscription</h3><span id="access-badge" class="tag">FREE</span></div><div id="account-info" class="empty">Connect a wallet to see your balance and billing details.</div><div id="policy-info"></div><button id="cancel" class="danger" hidden>Cancel future payments</button><div id="local-controls" hidden><hr><span class="eyebrow">LOCAL EVM LAB</span><p class="muted">These controls use local mock tokens. They never appear in Whitechain mode.</p><div class="control-grid"><button data-control="advance">Advance to renewal →</button><button data-control="check">Check collection rule</button><button data-control="empty">Empty customer wallet</button><button data-control="fund">Add 10 test USDT</button><button data-control="retry">Retry billing scan</button></div></div></article></div><div class="section-head"><h3>Payment trail</h3><span class="muted">Actual chain receipts, not simulated UI states</span></div><div id="customer-receipts" class="receipt-list"></div></section>

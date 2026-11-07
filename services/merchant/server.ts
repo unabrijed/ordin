@@ -271,7 +271,7 @@ export async function createMerchantApp(runtime:Runtime, database=':memory:', pu
      });
     }else {res.writeHead(200,{'content-type':'image/png','cache-control':'no-store'});res.end(renderCard(b.title,b.subtitle,'cobalt',false));}return;
    }
-   const files:Record<string,[string,string]>={'/':['index.html','text/html'],'/app.js':['app.js','text/javascript'],'/style.css':['style.css','text/css'],'/checkout.js':['checkout.js','text/javascript']};
+   const files:Record<string,[string,string]>={'/':['index.html','text/html'],'/app.js':['app.js','text/javascript'],'/style.css':['style.css','text/css'],'/checkout.js':['checkout.js','text/javascript'],'/favicon.svg':['favicon.svg','image/svg+xml'],'/social-preview.png':['social-preview.png','image/png'],'/site.webmanifest':['site.webmanifest','application/manifest+json'],'/robots.txt':['robots.txt','text/plain']};
    if(method==='GET'&&files[path]){const [file,type]=files[path];res.writeHead(200,{'content-type':type,'cache-control':'no-cache','x-content-type-options':'nosniff'});res.end(readFileSync(new URL(`../../examples/frame/${file}`,import.meta.url)));return;}
    throw new HttpError(404,'Not found');
   }catch(error){json({error:error instanceof HttpError?error.message:'Request could not complete. Check worker status and retry; no success is assumed.'},error instanceof HttpError?error.status:503);}
