@@ -8,6 +8,20 @@ Use a dedicated testnet merchant wallet. It sponsors registrations, renewals and
 
 For this demo, the merchant wallet can also be the receiving treasury. The paying customer must use a **different wallet**, with official testnet USDT and a little WBT for token approval. The known customer address is `0x1Dda4b932633cAd2a182f444bd5DE39BB01c278A`; its balance has not been verified from this environment.
 
+| Configuration | Purpose | Funding |
+| --- | --- | --- |
+| `MERCHANT_PRIVATE_KEY` | Secret used by the server to sign sponsored transactions | Its wallet needs WBT for gas |
+| `MERCHANT_TREASURY` | Public address receiving subscription payments | Receives USDT; no private key needed for receiving |
+| Customer wallet | Approves Ordin and signs subscription terms in the browser | At least 3 test USDT and WBT for approval |
+
+The signer and treasury can be the same wallet. The configured demo merchant/treasury is `0x76C636de66BB5A58f3d6bA015082b0187Ed56F0e`. Only its public address belongs in documentation; the signer key stays in local `.env` and Railway secrets.
+
+### Getting test tokens
+
+The [official faucet](https://faucet.testnet.whitechain.io) distributes **WBT**, not subscription USDT. Sign in with GitHub and claim to your merchant address; the customer also needs a little WBT for its initial token approval. See [Whitechain's faucet instructions](https://docs.whitechain.io/learn/get-started/get-testnet-wbt).
+
+A public faucet for Frame's exact USDT token has not been verified. Ask the Whitechain hackathon team for at least 3 test USDT on chain **1874**, token **`0xcedfB56113143d55b2358b8CFbB0dEB5Ad2f55a7`**, sent to your **customer** wallet. Import that address with 6 decimals to display the balance. Importing it does not mint tokens. Tokens on another chain, or a bridged token with a different address, do not fund this demo.
+
 ## 2. Set local configuration
 
 From the Ordin project folder:
@@ -59,7 +73,9 @@ Use the customer wallet, choose **Subscription → Start with Ordin**, and appro
 
 The UI has no demo wallet, mint button or time-advance controls in Whitechain mode. Premium access waits for two L2 confirmations. The customer pays initial approval gas; subsequent registration, renewal and cancellation are sponsored.
 
-## 6. Host the same working application
+## 6. Host on Railway
+
+Frame stays on Railway: one service serves the UI, API and renewal worker, with SQLite on the attached volume. No external database or scheduler is required.
 
 Frame needs an always-running Node process and durable SQLite storage. The root `Dockerfile` packages both the UI and merchant service. Do not deploy only `examples/frame` as static files.
 
@@ -89,4 +105,6 @@ Share only the public contract address, deployment transaction hash, and later t
 
 ## Current verification status
 
-The shared Ordin deployment succeeded; its [receipt and address](DEPLOYMENT.md) are recorded. Explorer source verification, a successful official-USDT payment/renewal/cancellation flow, and public Frame hosting remain to be confirmed. Local integration checks do not substitute for that live evidence.
+The shared Ordin deployment succeeded; its [receipt and address](DEPLOYMENT.md) are recorded. Frame's Railway Docker build also passed, with a persistent `/data` volume and `/api/ready` health check configured. Its assigned URL is https://frame-api-production-7da3.up.railway.app.
+
+After the merchant was funded on 2026-11-07, Railway restarted successfully. The public `/api/ready` endpoint returned HTTP 200 with `ok: true`, `mode: whitechain`, chain ID `1874`, the shared Ordin address, and no worker error. The WBT startup blocker is resolved. Explorer source verification and a successful official-USDT payment/renewal/cancellation flow remain to be confirmed. See the [demo runbook](DEMO-RUNBOOK.md) for funding, testing and deployment recovery. Local integration checks do not substitute for live payment evidence.

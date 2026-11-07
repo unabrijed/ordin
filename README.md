@@ -6,6 +6,8 @@ Ordin enables recurring token payments on Whitechain. Customers authorize a fixe
 
 A token allowance alone cannot express a subscription's terms. Ordin enforces those terms onchain and lets the customer cancel future payments.
 
+Whitechain settlement lets a merchant collect wallet-held USDT under customer-signed limits, with independently inspectable payment receipts. A conventional bank autopay mandate does not directly authorize or enforce transfers from a self-custodied token wallet.
+
 ## Whitechain deployment
 
 **The shared Ordin contract is deployed on Whitechain Sepolia.** Frame and other merchant applications use this same address; integrating another app does not require redeploying Ordin.
@@ -36,7 +38,7 @@ The customer currently pays initial token-approval gas. Policy registration and 
 
 Frame is a software subscription app powered by Ordin. Confirmed payments unlock premium PNG generation and API access. Its UI includes customer billing, merchant receipts, automatic renewals and cancellation. Cancellation preserves access through the already-paid period.
 
-The Whitechain demo charges **1 test USDT per 120-second window**, for at most **three windows**. Public Frame hosting and an end-to-end live payment demonstration remain to be confirmed.
+The Whitechain demo charges **1 test USDT per 120-second window**, for at most **three windows**. **[Open the live Frame tester](https://frame-api-production-7da3.up.railway.app).** Railway deployment and public readiness were verified on 2026-11-07. Customer funding with the required USDT is verified; the first subscription payment and end-to-end demonstration are still pending. [Live demo runbook and USDT funding](docs/DEMO-RUNBOOK.md).
 
 Use Node.js 22.14+ and Yarn Classic 1.22.22:
 
@@ -81,6 +83,8 @@ yarn test
 | [Deployment record](docs/DEPLOYMENT.md) | Contract address, receipt, compiler and verification status |
 | [Protocol reference](docs/PROTOCOL.md) | Policy rules, signatures, contract API and SDK integration |
 | [Frame guide](docs/FRAME-LIVE.md) | Merchant configuration and Whitechain hosting |
+| [Live demo runbook](docs/DEMO-RUNBOOK.md) | Hosting IDs, funding request, judging flow and recovery |
+| [Frame app](examples/frame/README.md) | Live tester and application layout |
 | [CLI walkthrough](docs/TESTNET.md) | Manual payment, renewal, cancellation and receipt inspection |
 | [Frame developer guide](services/merchant/README.md) | Local sandbox, API and implementation limits |
 

@@ -26,9 +26,8 @@ commit_group() {
   git add -- "$@"
   if ! git diff --cached --quiet; then git commit -m "$message"; fi
 }
-commit_group 'feat: connect Frame billing service and verify subscription lifecycle' services/merchant/runtime.ts services/merchant/server.ts test/frame.test.ts test/frame-config.test.ts services/merchant/config.ts
-commit_group 'feat: add runnable Frame subscription playground and merchant UI' examples/frame
-commit_group 'docs: explain Frame local demo and Whitechain configuration' README.md .env.example services/merchant/README.md scripts/commit-frame.sh docs/FRAME-LIVE.md scripts/frame-deploy.ts scripts/frame-preflight.ts scripts/frame-host-secrets.ts package.json Dockerfile .dockerignore
+commit_group 'feat: add Frame page metadata and public brand assets' examples/frame/index.html examples/frame/favicon.svg examples/frame/social-preview.png examples/frame/site.webmanifest examples/frame/robots.txt services/merchant/server.ts
+commit_group 'docs: document live Frame setup, requirements and funding' README.md docs/FRAME-LIVE.md docs/DEMO-RUNBOOK.md examples/frame/README.md WHITECHAIN_FEEDBACK.md scripts/commit-frame.sh
 # The user requested that all remaining project changes be committed as well.
 git add --all
 if ! git diff --cached --quiet; then
