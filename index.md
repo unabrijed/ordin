@@ -8,7 +8,7 @@ Ordin is a recurring-payment protocol for EVM wallets, targeting Whitechain. It 
 
 Approve token access for the Ordin contract, then separately authorize a payment policy. The policy specifies the token, authorized spender, recipient, fixed amount, billing interval, start time, and optional expiry. Token allowance alone does not authorize a payment.
 
-Example: authorize 5 USDT to one merchant once every 30 days.
+Example: subscribe to Block Notes, a fictional weekly DeFi research publication, for 5 USDT every 30 days. Authorize the publication as collector and its treasury wallet as recipient. This illustrates a possible use case, not an existing platform integration.
 
 ### 2. Your merchant requests collection
 
